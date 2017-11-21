@@ -68,8 +68,8 @@ public class TestYamlUtil1 {
 	}
 	
     public static void main(String[] args) throws Exception{
-    	RestAssured.baseURI = "http://****.dev.e-dewin.com";
-    	String password="*********";
+    	RestAssured.baseURI = "http://opapi.dev.e-dewin.com";
+    	String password="DWERP@#12$3458ta";
         HashMap<String, Object> bindmap= new HashMap<>();
         try {
         	
