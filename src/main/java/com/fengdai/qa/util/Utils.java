@@ -18,6 +18,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
 
 
@@ -30,6 +31,10 @@ public class Utils {
 	
 	public static String getphone(String a) {
 		return a;
+	}
+	
+	public static long getcurrenttime() {
+		return System.currentTimeMillis();
 	}
 	
 	  
@@ -51,6 +56,7 @@ public class Utils {
 //	          System.out.println("Found value: " + m.group(2) );
 	          String funvars= m.group(2);
 	          String vars[] = funvars.split(",");
+	          
 	          //验证参数是否是$a
 	          for(int i=0;i<vars.length;i++){
 	        	  Pattern rp = Pattern.compile(variable_regexp);
@@ -66,8 +72,19 @@ public class Utils {
 	          Utils test = new Utils();
 	          Method[] mts = Utils.class.getMethods();
 	          for(Method mt:mts){
-	        	  if(mt.getName().equals(m.group(1))&&mt.getParameterTypes().length == vars.length){
-	        		  result =   mt.invoke(test, vars);
+//	        	  System.out.println(m.group(1));
+//	        	  System.out.println(mt.getName());
+//	        	  System.out.println(mt.getParameterTypes().length);
+//	        	  System.out.println(vars.length);
+	        	  if(mt.getName().equals(m.group(1))){
+	        		  if(mt.getParameterTypes().length == vars.length){
+	        			  result =   mt.invoke(test, vars);
+	        			  break;
+	        		  }
+	        		  else if (vars.length == 1 && StringUtils.isEmpty(vars[0]) &&mt.getParameterTypes().length==0) {
+	        			  result =   mt.invoke(test);
+	        			  break;
+					}
 	        	  }
 	          }
 	          
@@ -75,6 +92,18 @@ public class Utils {
 	       } else {
 	          return funvar;
 	       }
+	}
+	
+	public static String getJsonPath(String checkstr){
+		String var="";
+		String variable_regexp = "^body\\.(.*)";
+		Pattern rp = Pattern.compile(variable_regexp);
+		Matcher matcher = rp.matcher(checkstr);
+		if(matcher.find()){
+			var= matcher.group(1);
+//			System.out.println(matcher.group(1));
+		}
+		return var;
 	}
 	
 	public static String checkGetkvar(String var,HashMap<String, Object> bindmap) throws Exception {
@@ -92,6 +121,7 @@ public class Utils {
 	}
 	
 	public static Object checkGetAll(String var,HashMap<String, Object> bindmap)  {
+		
 		String variable_regexp = "^\\$(\\w+)";
 		String function_regexp = "^\\$\\{(\\w+)\\(([\\w,$.]*)\\)\\}$";
 		Pattern rp = Pattern.compile(variable_regexp);
@@ -136,6 +166,7 @@ public class Utils {
 		HashMap<String, Object> bindmap = new HashMap<>();
 		bindmap.put("a", "123456");
 		System.out.println(checkGetAll(funvar, bindmap));
+		getJsonPath("body.content.data.userInfo.contactPhone");
 		
 		/**
 		// 用于定义正规表达式对象模板类型

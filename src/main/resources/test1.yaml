@@ -1,0 +1,52 @@
+casedata:                 
+    - steps: 
+        name: get token
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Accept: application/json, text/plain, */*
+            jsondata:
+                code: 10000
+                type: android
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: "android"
+                content:
+                    parameter:
+                        loginMethod: 2
+                        packageName: com.e_dewin.distribution
+                        appVersion: 8
+                        mobile: 18767191571
+                        password: "000000"
+                        appType: 1
+        extractors:
+            token: content.token
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.content.data.userInfo.contactPhone","comparator": "eq", "expect": 18767191571}
+            
+    - steps:
+        name: create user which does not exist
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Accept: application/json, text/plain, */*
+            jsondata:
+                code: 13007
+                type: android
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: $token
+                content:
+                    parameter:
+                        userId: 23ae51226d8f4c4392b2a06e36b257e5
+                        busareaId: f2025d7b165a4783b1287b2a97edd362
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.content.data.dispatchAreaInfoList[0].dispatchAreaCode", "comparator": "eq", "expect": "002"}
+    
+

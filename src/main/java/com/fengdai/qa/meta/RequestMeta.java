@@ -8,14 +8,22 @@ public class RequestMeta {
 	String method;
 	HashMap<String, String> headers;
 	HashMap<String, String> cookie;
-	HashMap<String, String> variables;
+	HashMap<String, String> formdata;
+	HashMap<String, Object> jsondata;
 	
-	public HashMap<String, String> getVariables() {
-		return variables;
+	public HashMap<String, String> getFormdata() {
+		return formdata;
 	}
-	public void setVariables(HashMap<String, String> variables) {
-		this.variables = variables;
+	public void setFormdata(HashMap<String, String> formdata) {
+		this.formdata = formdata;
 	}
+	public HashMap<String, Object> getJsondata() {
+		return jsondata;
+	}
+	public void setJsondata(HashMap<String, Object> jsondata) {
+		this.jsondata = jsondata;
+	}
+
 	public HashMap<String, String> getCookie() {
 		return cookie;
 	}

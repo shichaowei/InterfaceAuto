@@ -9,8 +9,8 @@ casedata:
                 Content-Type: application/x-www-form-urlencoded
                 Accept: application/json, text/plain, */*
             variables:
-                phone: ${getphone(18667906998)}
-                password: wsc6821051
+                phone: ${getphone(175555)}
+                password: 122233
         extractors:
             token: cookie.token
         validate:
