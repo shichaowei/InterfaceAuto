@@ -1,0 +1,34 @@
+casedata:
+    - steps: 
+        name: get token
+        request:
+            url: http://www.360fengdai.com/account/user/login
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Content-Type: application/x-www-form-urlencoded
+                Accept: application/json, text/plain, */*
+            variables:
+                phone: ${getphone(18667906998)}
+                password: wsc6821051
+        extractors:
+            token: cookie.token
+        validate:
+            - {"check": "statusCode", "comparator": "eq", "expect": 200}
+            - {"check": "body.phone","comparator": "eq", "expect": 18667906998}
+            
+    - steps:
+        name: create user which does not exist
+        request:
+            url: http://www.360fengdai.com/ShopWeb/shop/is_shop
+            method: GET
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Accept: application/json, text/plain, */*
+            cookie: 
+                token: $token
+        validate:
+            - {"check": "status_code", "comparator": "eq", "expect": 200}
+            - {"check": "body.isShop", "comparator": "eq", "expect": false}
+    
+

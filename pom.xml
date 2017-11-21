@@ -15,37 +15,49 @@
 	</properties>
 
 	<dependencies>
-	<!-- https://mvnrepository.com/artifact/org.htmlparser/htmlparser -->
-<dependency>
-    <groupId>org.htmlparser</groupId>
-    <artifactId>htmlparser</artifactId>
-    <version>1.6</version>
-</dependency>
-
-<!-- https://mvnrepository.com/artifact/oro/oro -->
-<dependency>
-    <groupId>oro</groupId>
-    <artifactId>oro</artifactId>
-    <version>2.0.8</version>
-</dependency>
-
 	
+	<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+    <version>1.2.41</version>
+</dependency>
+	
+	
+		<!-- https://mvnrepository.com/artifact/org.htmlparser/htmlparser -->
+		<dependency>
+			<groupId>org.htmlparser</groupId>
+			<artifactId>htmlparser</artifactId>
+			<version>1.6</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/oro/oro -->
+		<dependency>
+			<groupId>oro</groupId>
+			<artifactId>oro</artifactId>
+			<version>2.0.8</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.yaml/snakeyaml -->
+<dependency>
+    <groupId>org.yaml</groupId>
+    <artifactId>snakeyaml</artifactId>
+    <version>1.19</version>
+</dependency>
+
+
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>json-path</artifactId>
 			<version>3.0.5</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fengdai.qa</groupId>
-	<artifactId>fengdaiqacms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>xml-path</artifactId>
 			<version>3.0.5</version>
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20170516</version>
@@ -83,15 +95,15 @@
 
 		<!-- https://mvnrepository.com/artifact/org.mortbay.jetty/jetty-maven-plugin -->
 		<dependency>
-    <groupId>org.mortbay.jetty</groupId>
-    <artifactId>jetty</artifactId>
-    <version>7.0.0.pre5</version>
-</dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty</artifactId>
+			<version>7.0.0.pre5</version>
+		</dependency>
 
 
 
 
-		
+
 
 
 
