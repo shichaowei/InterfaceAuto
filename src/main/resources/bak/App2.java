@@ -1,4 +1,4 @@
-package com.fengdai.qa.interfaceAuto;
+package bak;
 
 /**
  * Hello world!
@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 
 import java.util.HashMap;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fengdai.qa.util.AesUtil;

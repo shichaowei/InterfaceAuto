@@ -37,9 +37,6 @@ public class Utils {
 		return result;
 	}
 	public static String handlerdewein(String body,String password) {
-		System.out.println("解密之前的request is :"+body);
-		System.out.println("password:"+password);
-		System.out.println(EncrptUtil.encrpt(body, password));
 		return EncrptUtil.encrpt(body, password);
 	}
 
@@ -123,7 +120,7 @@ public class Utils {
 				  var=(String) bindmap.get(matcher.group(1));
 			}
 			else
-				throw new Exception("zhuan huan shibai");
+				throw new Exception("转换失败");
 		}
 		return var;
 	}

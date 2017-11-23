@@ -1,10 +1,10 @@
-package com.fengdai.qa.interfaceAuto;
+package bak;
 
 import static io.restassured.RestAssured.given;
 
 import java.util.HashMap;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
 

@@ -81,10 +81,15 @@ public class TestYamlUtil1 {
 
 	}
 
+	
+	
+	
+	
+	
+	
     public static void main(String[] args) throws Exception{
 //    	RestAssured.baseURI = "http://opapi.dev.e-dewin.com";
     	RestAssured.baseURI = "http://opapi.dev.e-dewin.com";
-//    	String password="DWERP@#12$3458ta";
         HashMap<String, Object> bindmap= new HashMap<>();
 
 
@@ -94,9 +99,7 @@ public class TestYamlUtil1 {
             //获取test.yaml文件中的配置数据，然后转换为obj，
             InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:test1.yaml"));
 //            System.out.println(((ArrayList<Object>)yaml.load(in)).get(0).toString());
-//            ArrayList<StepMeta> teStepMetas = new ArrayList<StepMeta>();
             CaseMeta teStepMetas= yaml.loadAs(in, CaseMeta.class);
-            System.out.println(teStepMetas.getCasedata().get(0).getStepDetail().getName());
 
             for(StepMeta step:teStepMetas.getCasedata()){
             	Response response = null;
@@ -117,11 +120,11 @@ public class TestYamlUtil1 {
             	HashMap<String, Object> jsonvar = request.getJsondata();
             	if(jsonvar!=null){
             		jsonvar.forEach((k,v)->{
-//            			System.out.println(v+":"+v.getClass());
             			if(String.class.isInstance(v)){
             				jsonvar.put(k, Utils.checkGetAll((String) v, bindmap));
             			}
             		});
+            		String jsonvarbody = JSONObject.toJSONString(jsonvar);
 //            		RS.body(EncrptUtil.encrpt(JSONObject.toJSONString(jsonvar), password));
 
             		//处理requesthandler
@@ -130,13 +133,11 @@ public class TestYamlUtil1 {
                 		requesthandler.forEach((k,v)->{
     	            	    Object body = Utils.checkGetAll(v, bindmap);
     	            	    if(k.matches("^body$")) {
-    	            	    	System.out.println("shjia body is "+body);
     	            	    	RS.body(body);
     	            	    }
     	        		});
                 	}
             	}
-//            	System.out.println("jsondata:"+JSONObject.toJSONString(jsonvar));
 
             	//header
             	HashMap<String, String> var1= request.getHeaders();
@@ -166,7 +167,6 @@ public class TestYamlUtil1 {
 					default:
 						break;
 				}
-            	System.out.println("response is :"+response.asString());
             	//先绑定，处理responsehandler可能会用到
             	if(handleResponseBind(step.getStepDetail(), response,bindmap) != null)
             		bindmap.putAll(handleResponseBind(step.getStepDetail(), response,bindmap));
@@ -176,32 +176,18 @@ public class TestYamlUtil1 {
             	HashMap<String,String> responsehandler = stepDetail.getResponsehandler();
             	if(responsehandler!=null){
             		responsehandler.forEach((k,v)->{
-//            			System.out.println("k:"+k);
-//            			System.out.println("v:"+v);
-//            			System.out.println("bindmap:"+bindmap);
 	            		sHashMap.put(k, Utils.checkGetAll(v, bindmap));
 	        		});
             	}
 
 
-//            	System.out.println(response.asString());
-            	//解密
-//            	HashMap sHashMap = JSONObject.parseObject(response.asString(), HashMap.class);
-//            	String content =response.path("content");
-//        		System.out.println(sHashMap);
-//        		System.out.println("揭秘后的数据："+AesUtil.aesDecrypt(content, password));
-//        		HashMap contentmap = JSONObject.parseObject(AesUtil.aesDecrypt(content, password), HashMap.class);
-//        		sHashMap.put("content", contentmap);
         		System.out.println("解密后的数据："+sHashMap);
-//        		System.out.println(JsonPath.from(JSONObject.toJSONString(sHashMap)).getString("content.data.userInfo.contactPhone"));
 
 
 
             	//校验点
             	ArrayList<ValidateMeta> var3list = stepDetail.getValidate();
             	for(ValidateMeta var3:var3list){
-            		System.out.println(var3.getCheck());
-            		System.out.println(var3.getExpect());
             		if(var3.getCheck().matches("^body\\.(.*)")){
             			if(var3.getComparator().equals("eq")){
             				if(var3.getExpect().equals(JsonPath.from(JSONObject.toJSONString(sHashMap)).getString(Utils.getJsonPath(var3.getCheck())))){
