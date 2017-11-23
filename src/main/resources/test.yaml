@@ -2,18 +2,18 @@ casedata:
     - steps: 
         name: get token
         request:
-            url: http://10.200.141.56:81/account/user/passwd_smscode_login
+            url: account/user/passwd_smscode_login
             method: POST
             headers:
                 user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
                 Content-Type: application/x-www-form-urlencoded
                 Accept: application/json, text/plain, */*
-            variables:
+            formdata:
                 phone: ${getphone(18611111111)}
                 password: 123456
                 verifyCode: 1234
                 templateCode: fed_sms_dl_ht
-        extractors:
+        responsebind:
             token: cookie.token
         validate:
             - {"check": "statusCode", "comparator": "eq", "expect": 200}
@@ -22,7 +22,7 @@ casedata:
     - steps:
         name: zhuanzhang
         request:
-            url: http://10.200.141.65:81/Finance/adjust_funds/post
+            url: Finance/adjust_funds/post
             method: POST
             headers:
                 user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36

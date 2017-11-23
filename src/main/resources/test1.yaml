@@ -17,14 +17,24 @@ casedata:
                     parameter:
                         loginMethod: 2
                         packageName: com.e_dewin.distribution
-                        appVersion: 8
+                        appVersion: 9
                         mobile: 18767191571
                         password: "000000"
                         appType: 1
-        extractors:
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            #如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            #key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
             token: content.token
+            content: content.content
+        responsehandler:
+            #key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
         validate:
-            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600 }
             - {"check": "body.content.data.userInfo.contactPhone","comparator": "eq", "expect": 18767191571}
             
     - steps:
@@ -45,6 +55,17 @@ casedata:
                     parameter:
                         userId: 23ae51226d8f4c4392b2a06e36b257e5
                         busareaId: f2025d7b165a4783b1287b2a97edd362
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            #如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            #key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            content: content.content
+        responsehandler:
+            #key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
         validate:
             - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
             - {"check": "body.content.data.dispatchAreaInfoList[0].dispatchAreaCode", "comparator": "eq", "expect": "002"}

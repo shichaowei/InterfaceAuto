@@ -6,8 +6,37 @@ import java.util.HashMap;
 public class StepDetail{
 		String name;
 		RequestMeta request;
-		HashMap<String, String> extractors;
+		HashMap<String, String> responsebind;
+		HashMap<String, String> requestbind;
+		HashMap<String, String> requesthandler;
+		HashMap<String, String> responsehandler;
 		ArrayList<ValidateMeta> validate;
+
+
+		public HashMap<String, String> getResponsebind() {
+			return responsebind;
+		}
+		public void setResponsebind(HashMap<String, String> responsebind) {
+			this.responsebind = responsebind;
+		}
+		public HashMap<String, String> getRequestbind() {
+			return requestbind;
+		}
+		public void setRequestbind(HashMap<String, String> requestbind) {
+			this.requestbind = requestbind;
+		}
+		public HashMap<String, String> getRequesthandler() {
+			return requesthandler;
+		}
+		public void setRequesthandler(HashMap<String, String> requesthandler) {
+			this.requesthandler = requesthandler;
+		}
+		public HashMap<String, String> getResponsehandler() {
+			return responsehandler;
+		}
+		public void setResponsehandler(HashMap<String, String> responsehandler) {
+			this.responsehandler = responsehandler;
+		}
 		public String getName() {
 			return name;
 		}
@@ -19,12 +48,6 @@ public class StepDetail{
 		}
 		public void setRequest(RequestMeta request) {
 			this.request = request;
-		}
-		public HashMap<String, String> getExtractors() {
-			return extractors;
-		}
-		public void setExtractors(HashMap<String, String> extractors) {
-			this.extractors = extractors;
 		}
 		public ArrayList<ValidateMeta> getValidate() {
 			return validate;
