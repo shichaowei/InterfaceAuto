@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.util.ResourceUtils;
 import org.testng.Assert;
@@ -27,7 +29,6 @@ import com.fengdai.qa.util.Utils;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import io.restassured.path.json.exception.JsonPathException;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -54,22 +55,47 @@ public class TestDw {
 	 * @return
 	 */
 	public static HashMap<String, String> handleResponseBind (StepDetail stepDetail,Response response,HashMap<String, Object> bindmap) {
+		System.out.println("response:"+response.asString());
 		HashMap<String, String> bindresult = new HashMap<>();
 		HashMap<String, String> var= stepDetail.getResponsebind();
 		if(var !=null){
 			var.forEach((k,v)->{
 				if(v.matches("^cookie.*")){
-					bindresult.put(k, (String) Utils.checkGetAll(response.getCookie(k),bindmap));
-				}else if (v.matches("^content.*")) {
-					try {
-						if(String.class.isInstance(response.getBody().path(k)))
-							bindresult.put(k, (String) Utils.checkGetAll(response.getBody().path(k), bindmap));
-						else
-							bindresult.put(k, response.getBody().path(k));
-					} catch (JsonPathException e) {
-//						System.out.println("response is :"+response.getBody().asString());
-						e.printStackTrace();
+					Pattern rp = Pattern.compile("^cookie.(.*)");
+					Matcher matcher = rp.matcher(v);
+					String path="";
+					if(matcher.find()){
+						path = matcher.group(1);
 					}
+					bindresult.put(k, (String) Utils.checkGetAll(response.getCookie(path),bindmap));
+				}else if (v.matches("^content.*")) {
+
+						Pattern rp = Pattern.compile("^content.(.*)");
+						Matcher matcher = rp.matcher(v);
+						String path="";
+						if(matcher.find()){
+							path = matcher.group(1);
+						}
+						boolean ifmiwen=false;
+
+						Object vars;
+						try {
+							vars = response.getBody().path(path);
+							ifmiwen = false;
+						} catch (Exception e) {
+							ifmiwen =true;
+						}
+						if(!ifmiwen) {
+							if(String.class.isInstance(response.getBody().path(path)))
+								bindresult.put(k, (String) Utils.checkGetAll(response.getBody().path(path), bindmap));
+							else
+								bindresult.put(k, response.getBody().path(path));
+						}else {
+							HashMap result = Utils.getAllmingwen(response.getBody().asString(), "DWERP@#12$3458ta");
+//							System.out.println(JsonPath.from(JSONObject.toJSONString(result)).getString(path));
+							bindresult.put(k, JsonPath.from(JSONObject.toJSONString(result)).getString(path));
+						}
+
 				}
 			});
 		}
@@ -134,6 +160,8 @@ public class TestDw {
     	if(jsonvar!=null){
     		jsonvar.forEach((k,v)->{
     			if(String.class.isInstance(v)){
+    				System.out.println("v is :"+v);
+    				System.out.println(bindmap);
     				jsonvar.put(k, Utils.checkGetAll((String) v, bindmap));
     			}
     		});
@@ -148,7 +176,6 @@ public class TestDw {
             	    Object body = Utils.checkGetAll(v, bindmap);
             	    System.out.println("bindmap is :"+bindmap);
             	    if(k.matches("^body$")) {
-
             	    	RS.body(body);
             	    }
         		});
@@ -183,7 +210,7 @@ public class TestDw {
 			default:
 				break;
 		}
-    	//先绑定，处理responsehandler可能会用到
+    	//绑定
     	if(handleResponseBind(step.getStepDetail(), response,bindmap) != null)
     		bindmap.putAll(handleResponseBind(step.getStepDetail(), response,bindmap));
 
@@ -195,6 +222,10 @@ public class TestDw {
         		sHashMap.put(k, Utils.checkGetAll(v, bindmap));
     		});
     	}
+
+
+
+
 
 
 		System.out.println("解密后的数据："+sHashMap);
