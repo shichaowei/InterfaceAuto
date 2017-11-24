@@ -1,0 +1,254 @@
+casedata:                 
+    - steps: 
+        # 登录
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Accept: application/json, text/plain, */*
+                Content-Type: application/json;charset=UTF-8
+            jsondata:
+                code: "10000"
+                type: "android"
+                device_id: "cb6685f3-4370-3664-8dbb-41655ff55644"
+                time: ${getcurrenttime()}
+                token: "android"
+                content:
+                    parameter:
+                        loginMethod: "2"
+                        packageName: com.e_dewin.distribution
+                        appVersion: "9"
+                        mobile: "18767191571"
+                        password: "000000"
+                        appType: "1"
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            # 如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            # key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            token: content.token
+            content: content.content
+            userId: content.content.data.userInfo.userId
+            busareaId: content.content.data.userInfo.busareaId
+        responsehandler:
+            # key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600 }
+            - {"check": "body.content.data.userInfo.contactPhone","comparator": "eq", "expect": 18767191571}
+            
+    - steps:
+        # 获取配送区域和门店信息
+        name: get distribution and store information
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Accept: application/json, text/plain, */*
+                Content-Type: application/json;charset=UTF-8
+            jsondata:
+                code: "13007"
+                type: "android"
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: $token
+                content:
+                    parameter:
+                        userId: $userId
+                        busareaId: $busareaId
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            #如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            #key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            content: content.content
+        responsehandler:
+            #key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.msg", "comparator": "eq", "expect": "获取配送区域信息成功"}
+            - {"check": "body.content.data.dispatchAreaInfoList[0].dispatchAreaCode", "comparator": "eq", "expect": "002"}
+
+    - steps:
+        name: search get store
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Accept: application/json, text/plain, */*
+                Content-Type: application/json;charset=UTF-8
+            jsondata:
+                code: "12002"
+                type: "android"
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: $token
+                content:
+                    parameter:
+                        userId: $userId
+                        busareaId: $busareaId
+                        storeName: "魏"
+                        
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            #如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            #key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            content: content.content
+        responsehandler:
+            #key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.msg", "comparator": "eq", "expect": ""}
+
+    - steps:
+        # 清空购物车
+        name: empty the cart
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Content-Type: application/json;charset=UTF-8
+            jsondata:
+                code: "12018"
+                type: "android"
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: $token
+                content:
+                    parameter:
+                        userId: $userId
+                        busareaId: $busareaId
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            # 如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            # key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            content: content.content
+        responsehandler:
+            # key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.msg", "comparator": "eq", "expect": ""}
+
+    - steps:
+        # 获取类目列表
+        name:  get category list
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Content-Type: application/json;charset=UTF-8
+            jsondata:
+                code: "12004"
+                type: "android"
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: $token
+                content:
+                    parameter:
+                        userId: $userId
+                        busareaId: $busareaId
+                        storeId: "e2f8138e4bb943cbbde2a68c2371296f"
+                        orderType: "1"
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            # 如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            # key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            content: content.content
+        responsehandler:
+            # key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.msg", "comparator": "eq", "expect": ""}
+            
+    - steps:
+        # 获取品牌列表
+        name:  get brand list
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Content-Type: application/json;charset=UTF-8
+            jsondata:
+                code: "12008"
+                type: "android"
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: $token
+                content:
+                    parameter:
+                        userId: $userId
+                        busareaId: $busareaId
+                        storeId: "e2f8138e4bb943cbbde2a68c2371296f"
+                        orderType: "1"
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            #如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            #key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            content: content.content
+        responsehandler:
+            #key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.msg", "comparator": "eq", "expect": ""}        
+
+    - steps:
+        name:  get brand list
+        request:
+            url: apiservice
+            method: POST
+            headers:
+                user_agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36
+                Content-Type: application/json;charset=UTF-8
+            jsondata:
+                code: "12006"
+                type: "android"
+                device_id: cb6685f3-4370-3664-8dbb-41655ff55644
+                time: ${getcurrenttime()}
+                token: $token
+                content:
+                    parameter:
+                        userId: $userId
+                        busareaId: $busareaId
+                        storeId: "e2f8138e4bb943cbbde2a68c2371296f"
+                        orderType: "1"
+        requestbind:
+            jsondata: request.jsondata
+        requesthandler:
+            #如果是%表示是直接取reques里面的数值
+            body: ${handlerdewein($jsondata,"DWERP@#12$3458ta")}
+        responsebind:
+            #key如果为body的值，k为路径 如果为cookie里的值 k为map的key值 通过v可以判断是从cookie还是body里面取（cookie content）
+            content: content.content
+        responsehandler:
+            #key为response的路径
+            content: ${getmingwen($content,"DWERP@#12$3458ta")}
+        validate:
+            - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
+            - {"check": "body.msg", "comparator": "eq", "expect": ""}        

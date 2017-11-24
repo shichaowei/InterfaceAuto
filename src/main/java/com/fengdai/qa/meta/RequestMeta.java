@@ -1,6 +1,7 @@
 package com.fengdai.qa.meta;
 
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class RequestMeta {
 	
@@ -8,13 +9,13 @@ public class RequestMeta {
 	String method;
 	HashMap<String, String> headers;
 	HashMap<String, String> cookie;
-	HashMap<String, String> formdata;
+	HashMap<String, Object> formdata;
 	HashMap<String, Object> jsondata;
 	
-	public HashMap<String, String> getFormdata() {
+	public HashMap<String, Object> getFormdata() {
 		return formdata;
 	}
-	public void setFormdata(HashMap<String, String> formdata) {
+	public void setFormdata(HashMap<String, Object> formdata) {
 		this.formdata = formdata;
 	}
 	public HashMap<String, Object> getJsondata() {

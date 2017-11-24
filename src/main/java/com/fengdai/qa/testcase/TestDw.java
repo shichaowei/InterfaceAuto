@@ -26,6 +26,7 @@ import com.fengdai.qa.meta.StepDetail;
 import com.fengdai.qa.meta.StepMeta;
 import com.fengdai.qa.meta.ValidateMeta;
 import com.fengdai.qa.util.Utils;
+import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -47,6 +48,9 @@ public class TestDw {
 
 	}
 
+	
+	
+	
 
 	/**
 	 * k值为要查找的value的路径
@@ -55,9 +59,11 @@ public class TestDw {
 	 * @return
 	 */
 	public static HashMap<String, String> handleResponseBind (StepDetail stepDetail,Response response,HashMap<String, Object> bindmap) {
-		System.out.println("response:"+response.asString());
+//		System.out.println("进入handleResponseBind"+bindmap);
+//		System.out.println("response:"+response.asString());
 		HashMap<String, String> bindresult = new HashMap<>();
 		HashMap<String, String> var= stepDetail.getResponsebind();
+//		System.out.println("要绑定的var is ----"+var);
 		if(var !=null){
 			var.forEach((k,v)->{
 				if(v.matches("^cookie.*")){
@@ -76,24 +82,30 @@ public class TestDw {
 						if(matcher.find()){
 							path = matcher.group(1);
 						}
-						boolean ifmiwen=false;
+						boolean ifmiwenpath=false;
 
-						Object vars;
 						try {
-							vars = response.getBody().path(path);
-							ifmiwen = false;
+							response.getBody().path(path);
+							ifmiwenpath = false;
 						} catch (Exception e) {
-							ifmiwen =true;
+							ifmiwenpath =true;
 						}
-						if(!ifmiwen) {
+						if(!ifmiwenpath) {
 							if(String.class.isInstance(response.getBody().path(path)))
 								bindresult.put(k, (String) Utils.checkGetAll(response.getBody().path(path), bindmap));
 							else
 								bindresult.put(k, response.getBody().path(path));
 						}else {
-							HashMap result = Utils.getAllmingwen(response.getBody().asString(), "DWERP@#12$3458ta");
+							HashMap result = Utils.getmingwen(response.getBody().path("content"), "DWERP@#12$3458ta");
+//							System.out.println(JSONObject.toJSONString(result));
+							Matcher mat1= Pattern.compile("^content.(.*)").matcher(path);
+							if(mat1.find()){
+								path=mat1.group(1);
+							}
+//							System.out.println(path.replace(path, "content")+"------"+path);
 //							System.out.println(JsonPath.from(JSONObject.toJSONString(result)).getString(path));
 							bindresult.put(k, JsonPath.from(JSONObject.toJSONString(result)).getString(path));
+							
 						}
 
 				}
@@ -112,23 +124,29 @@ public class TestDw {
 	 * @return
 	 */
 	public static HashMap<String, String> handleRequestBind (StepDetail stepDetail,HashMap<String, Object> bindmap) {
+//		System.out.println("进入handleRequestBind"+bindmap);
 		HashMap<String, String> bindresult = new HashMap<>();
 		HashMap<String, String> var= stepDetail.getRequestbind();
 		RequestMeta requestMeta = stepDetail.getRequest();
 		if(var !=null){
 			var.forEach((k,v)->{
+//				System.out.println(k+":***"+v);
 				if(v.equals("request.jsondata")) {
+					
 						//处理jsondata 处理request中有$var ${sdfdfds()}情况
 						HashMap<String, Object>  var1 = requestMeta.getJsondata();
-						HashMap<String, Object> jsondataAfter = new HashMap<>();
-						var1.forEach((k1,v1)->{
-							if(String.class.isInstance(v1))
-								jsondataAfter.put(k1, Utils.checkGetAll((String)v1, bindmap));
-							else {
-								jsondataAfter.put(k1, v1);
-							}
-						});
-						bindresult.put(k,JSONObject.toJSONString(jsondataAfter));
+//						HashMap<String, Object> jsondataAfter = new HashMap<>();
+//						System.out.println(var1);
+						Utils.handleObject(var1, bindmap);
+//						var1.forEach((k1,v1)->{
+//							System.out.println(k1+"----"+v1);
+//							if(String.class.isInstance(v1)) 
+//								jsondataAfter.put(k1, Utils.checkGetAll((String)v1, bindmap));
+//							else {
+//								jsondataAfter.put(k1, v1);
+//							}
+//						});
+						bindresult.put(k,JSONObject.toJSONString(var1));
 				}
 			});
 		}
@@ -146,27 +164,26 @@ public class TestDw {
     	RequestMeta request=stepDetail.getRequest();
     	RequestSpecification RS = given();
     	//处理requestbinds
-    	if(handleRequestBind(step.getStepDetail(),bindmap) != null)
-    		bindmap.putAll(handleRequestBind(step.getStepDetail(),bindmap));
+    	HashMap<String, String> requestBinds = handleRequestBind(step.getStepDetail(),bindmap);
+    	if(requestBinds != null)
+    		bindmap.putAll(requestBinds);
     	//form
-    	HashMap<String, String> var = request.getFormdata();
+    	HashMap<String, Object> var = request.getFormdata();
     	if(var!=null){
         	var.forEach((k,v)->{
-					RS.param(k, Utils.checkGetAll(v, bindmap));
+        			v = Utils.handleObject(v, bindmap);
+					RS.param(k, v);
     		});
     	}
     	//json
     	HashMap<String, Object> jsonvar = request.getJsondata();
     	if(jsonvar!=null){
     		jsonvar.forEach((k,v)->{
-    			if(String.class.isInstance(v)){
-    				System.out.println("v is :"+v);
-    				System.out.println(bindmap);
-    				jsonvar.put(k, Utils.checkGetAll((String) v, bindmap));
-    			}
+    			v = Utils.handleObject(v, bindmap);
+    			jsonvar.put(k, v);
     		});
     		String jsonvarbody = JSONObject.toJSONString(jsonvar);
-    		System.out.println("body is :"+jsonvarbody);
+//    		System.out.println("body is :"+jsonvarbody);
 //    		RS.body(EncrptUtil.encrpt(JSONObject.toJSONString(jsonvar), password));
 
     		//处理requesthandler
@@ -174,7 +191,7 @@ public class TestDw {
         	if(requesthandler!=null){
         		requesthandler.forEach((k,v)->{
             	    Object body = Utils.checkGetAll(v, bindmap);
-            	    System.out.println("bindmap is :"+bindmap);
+//            	    System.out.println("bindmap is :"+bindmap);
             	    if(k.matches("^body$")) {
             	    	RS.body(body);
             	    }
@@ -211,8 +228,9 @@ public class TestDw {
 				break;
 		}
     	//绑定
-    	if(handleResponseBind(step.getStepDetail(), response,bindmap) != null)
-    		bindmap.putAll(handleResponseBind(step.getStepDetail(), response,bindmap));
+    	HashMap<String, String> responseBinds = handleResponseBind(step.getStepDetail(), response,bindmap);
+    	if(responseBinds != null)
+    		bindmap.putAll(responseBinds);
 
     	//处理responsehandler
     	HashMap sHashMap = JSONObject.parseObject(response.asString(), HashMap.class);

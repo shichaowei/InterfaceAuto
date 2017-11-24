@@ -1,6 +1,7 @@
 package com.fengdai.qa.util;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,10 +37,54 @@ public class Utils {
 		}
 		return result;
 	}
+	
+
 	public static String handlerdewein(String body,String password) {
 		return EncrptUtil.encrpt(body, password);
 	}
 
+	@SuppressWarnings("unchecked")
+	public static void handleMapdata(HashMap<String, Object> var1,HashMap<String, Object> bindmap) {
+		var1.forEach((k1,v1)->{
+			if(String.class.isInstance(v1)) {
+				var1.put(k1, Utils.checkGetAll((String)v1, bindmap));
+			}
+			else {
+				if(ArrayList.class.isInstance(v1)){
+					 handleListdata((ArrayList<Object>) v1, bindmap);
+				}else if (HashMap.class.isInstance(v1)) {
+					handleMapdata((HashMap<String, Object>) v1, bindmap);
+				}
+			}
+		});
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void handleListdata(ArrayList<Object> v1,HashMap<String, Object> bindmap) {
+		((ArrayList<Object>) v1).stream().forEach(listvar ->{  
+            if(String.class.isInstance(listvar)){
+            	v1.remove(listvar);
+            	v1.add( Utils.checkGetAll((String)listvar, bindmap));
+            }else if (ArrayList.class.isInstance(listvar)) {
+				handleListdata((ArrayList<Object>) listvar, bindmap);
+			}else if (HashMap.class.isInstance(listvar)) {
+				handleMapdata((HashMap<String, Object>) listvar, bindmap);
+			}
+        });
+	}
+	
+	
+	public static Object handleObject(Object var,HashMap<String, Object> bindmap) {
+		Object result=null;
+		if(String.class.isInstance(var)){
+        	result = Utils.checkGetAll((String)var, bindmap);
+        }else if (ArrayList.class.isInstance(var)) {
+			handleListdata((ArrayList<Object>) var, bindmap);
+		}else if (HashMap.class.isInstance(var)) {
+			handleMapdata((HashMap<String, Object>) var, bindmap);
+		}
+		return result;
+	}
 
 
 
@@ -120,7 +165,7 @@ public class Utils {
 				  var=(String) bindmap.get(matcher.group(1));
 			}
 			else
-				throw new Exception("转换失败");
+				throw new Exception(var+"*****转换失败");
 		}
 		return var;
 	}
