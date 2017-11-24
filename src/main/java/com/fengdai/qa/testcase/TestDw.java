@@ -32,21 +32,21 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class TestDw {
-	
+
 	static HashMap<String, Object> bindmap= new HashMap<>();
-	
+
 	@BeforeTest
 	public void befortest(){
 		RestAssured.baseURI = "http://opapi.dev.e-dewin.com";
 	}
-	
+
 	@AfterTest
 	public void aftertest(){
-		
-		
+
+
 	}
-	
-	
+
+
 	/**
 	 * k值为要查找的value的路径
 	 * @param stepDetail
@@ -77,9 +77,9 @@ public class TestDw {
 
 	}
 
-	
+
 	/**
-	 * 
+	 *
 	 * 处理requestbind
 	 * @param stepDetail
 	 * @param bindmap
@@ -109,12 +109,12 @@ public class TestDw {
 		return bindresult;
 
 	}
-	
-	
+
+
 	@Test(dataProvider ="data")
 	public void test(StepMeta step){
 		System.out.println(step);
-		
+
 		Response response = null;
     	StepDetail stepDetail =step.getStepDetail();
     	RequestMeta request=stepDetail.getRequest();
@@ -138,6 +138,7 @@ public class TestDw {
     			}
     		});
     		String jsonvarbody = JSONObject.toJSONString(jsonvar);
+    		System.out.println("body is :"+jsonvarbody);
 //    		RS.body(EncrptUtil.encrpt(JSONObject.toJSONString(jsonvar), password));
 
     		//处理requesthandler
@@ -145,7 +146,9 @@ public class TestDw {
         	if(requesthandler!=null){
         		requesthandler.forEach((k,v)->{
             	    Object body = Utils.checkGetAll(v, bindmap);
+            	    System.out.println("bindmap is :"+bindmap);
             	    if(k.matches("^body$")) {
+
             	    	RS.body(body);
             	    }
         		});
@@ -204,7 +207,7 @@ public class TestDw {
     		if(var3.getCheck().matches("^body\\.(.*)")){
     			if(var3.getComparator().equals("eq")){
     				String expected = JsonPath.from(JSONObject.toJSONString(sHashMap)).getString(Utils.getJsonPath(var3.getCheck()));
-    				Assert.assertEquals(var3.getExpect(), expected);
+    					Assert.assertEquals( expected,var3.getExpect());
 //    				if(var3.getExpect().equals(expected)){
 //    					System.out.println(var3.getExpect()+":check Ok");
 //    				}
@@ -213,21 +216,21 @@ public class TestDw {
     	}
 
 	}
-	
+
 	@DataProvider(name="data")
 	public Iterator<StepMeta> dataprovider() throws FileNotFoundException{
 		Yaml yaml = new Yaml();
 //      URL url = Test.class.getClassLoader().getResource("test.yaml");
 
         //获取test.yaml文件中的配置数据，然后转换为obj，
-        InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:test1.yaml"));
+        InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:test3.yaml"));
 //        System.out.println(((ArrayList<Object>)yaml.load(in)).get(0).toString());
         CaseMeta teStepMetas= yaml.loadAs(in, CaseMeta.class);
         return teStepMetas.getCasedata().iterator();
 	}
-	
-	
-	
-	
+
+
+
+
 
 }
