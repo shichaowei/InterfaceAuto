@@ -5,6 +5,7 @@ import static io.restassured.RestAssured.given;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -130,23 +131,17 @@ public class TestDw {
 		RequestMeta requestMeta = stepDetail.getRequest();
 		if(var !=null){
 			var.forEach((k,v)->{
-//				System.out.println(k+":***"+v);
 				if(v.equals("request.jsondata")) {
-					
 						//处理jsondata 处理request中有$var ${sdfdfds()}情况
 						HashMap<String, Object>  var1 = requestMeta.getJsondata();
-//						HashMap<String, Object> jsondataAfter = new HashMap<>();
-//						System.out.println(var1);
 						Utils.handleObject(var1, bindmap);
-//						var1.forEach((k1,v1)->{
-//							System.out.println(k1+"----"+v1);
-//							if(String.class.isInstance(v1)) 
-//								jsondataAfter.put(k1, Utils.checkGetAll((String)v1, bindmap));
-//							else {
-//								jsondataAfter.put(k1, v1);
-//							}
-//						});
 						bindresult.put(k,JSONObject.toJSONString(var1));
+				}else 
+				if(v.equals("request.formdata")) {
+					//处理formdata 处理request中有$var ${sdfdfds()}情况
+					HashMap<String, Object>  var1 = requestMeta.getFormdata();
+					Utils.handleObject(var1, bindmap);
+					bindresult.put(k,JSONObject.toJSONString(var1));
 				}
 			});
 		}
@@ -157,7 +152,6 @@ public class TestDw {
 
 	@Test(dataProvider ="data")
 	public void test(StepMeta step){
-		System.out.println(step);
 
 		Response response = null;
     	StepDetail stepDetail =step.getStepDetail();
@@ -190,11 +184,16 @@ public class TestDw {
         	HashMap<String,String> requesthandler = stepDetail.getRequesthandler();
         	if(requesthandler!=null){
         		requesthandler.forEach((k,v)->{
-            	    Object body = Utils.checkGetAll(v, bindmap);
-//            	    System.out.println("bindmap is :"+bindmap);
+            	    v = (String) Utils.handleObject(v, bindmap);
             	    if(k.matches("^body$")) {
-            	    	RS.body(body);
-            	    }
+            	    	RS.body(v);
+            	    }else if (k.matches("^cookie.*")) {
+            	    	Matcher matcher = Pattern.compile("^cookie.(.*)").matcher(v);
+            	    	if(matcher.find()){
+            	    		Object cookievalue=Utils.handleObject(v, bindmap);
+    						RS.cookie(matcher.group(1), cookievalue);
+            	    	}
+					}
         		});
         	}
     	}
@@ -215,13 +214,20 @@ public class TestDw {
     	}
 
 
-    	//URL
+    	//URL(增加URL参数化)
+    	String[] testUrl = step.getStepDetail().getRequest().getUrl().split("/");
+    	StringBuffer urlHandled= new StringBuffer();
+    	for (int i = 0; i < testUrl.length; i++) {
+			urlHandled.append(Utils.checkGetAll(testUrl[i], bindmap));
+			if(!(testUrl.length ==i+1))
+				urlHandled.append("/");
+		}
     	switch (step.getStepDetail().getRequest().getMethod().toLowerCase()) {
 			case "post":
-				response = RS.post(step.getStepDetail().getRequest().getUrl());
+				response = RS.post(urlHandled.toString());
 				break;
 			case "get":
-				response = RS.get(step.getStepDetail().getRequest().getUrl());
+				response = RS.get(urlHandled.toString());
 				break;
 
 			default:
@@ -234,7 +240,8 @@ public class TestDw {
 
     	//处理responsehandler
     	HashMap sHashMap = JSONObject.parseObject(response.asString(), HashMap.class);
-    	HashMap<String,String> responsehandler = stepDetail.getResponsehandler();
+    	HashMap<String
+    	,String> responsehandler = stepDetail.getResponsehandler();
     	if(responsehandler!=null){
     		responsehandler.forEach((k,v)->{
         		sHashMap.put(k, Utils.checkGetAll(v, bindmap));

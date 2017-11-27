@@ -89,7 +89,7 @@ public class Utils {
 
 
 
-	public static Object checkGetfunc(String funvar,HashMap<String, Object> bindmap) throws Exception{
+	private static Object checkGetfunc(String funvar,HashMap<String, Object> bindmap) throws Exception{
 //		String function_regexp = "^\\$\\{(\\w+)\\(([\\w,$.]*)\\)\\}$";
 //		String function_regexp = "^\\$\\{(\\w+)\\(([\\w,$.\"]*)\\)\\}$";
 		String function_regexp = "^\\$\\{(\\w+)\\((.*)\\)\\}$";
@@ -156,7 +156,7 @@ public class Utils {
 		return var;
 	}
 
-	public static String checkGetkvar(String var,HashMap<String, Object> bindmap) throws Exception {
+	private static String checkGetkvar(String var,HashMap<String, Object> bindmap) throws Exception {
 		String variable_regexp = "^\\$(\\w+)";
 		Pattern rp = Pattern.compile(variable_regexp);
 		Matcher matcher = rp.matcher(var);
