@@ -82,6 +82,8 @@ public class Utils {
 			handleListdata((ArrayList<Object>) var, bindmap);
 		}else if (HashMap.class.isInstance(var)) {
 			handleMapdata((HashMap<String, Object>) var, bindmap);
+		}else {
+			result = var;
 		}
 		return result;
 	}

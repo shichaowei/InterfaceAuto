@@ -1,9 +1,53 @@
 package com.fengdai.qa.util;
 
-import java.io.File;
 import java.io.*;
 
+import org.springframework.util.ResourceUtils;
+
 public class FileUtil {
+	public static void clearWriteFile(String content,String filepath) {
+		try {
+			File file = new File(filepath);
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void appendFile(String content,String filepath){
+		File file=new File(filepath);
+		if(!file.exists())
+		{
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		BufferedWriter out = null;
+		try {
+			out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file, true)));
+			out.write(content);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(out != null){
+					out.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
     /**
      * 以字节为单位读取文件，常用于读二进制文件，如图片、声音、影像等文件。
      */
@@ -183,11 +227,13 @@ public class FileUtil {
         }
     }
 
-    public static void main(String[] args) {
-        String fileName = "C:/temp/newTemp.txt";
-        FileUtil.readFileByBytes(fileName);
+    public static void main(String[] args) throws FileNotFoundException {
+        String fileName = "result.txt";
+        /*FileUtil.readFileByBytes(fileName);
         FileUtil.readFileByChars(fileName);
         FileUtil.readFileByLines(fileName);
-        FileUtil.readFileByRandomAccess(fileName);
+        FileUtil.readFileByRandomAccess(fileName);*/
+        System.out.println(ResourceUtils.getFile("classpath:failresult.txt").getAbsolutePath());
+        FileUtil.appendFile("sfdsfdsf123", ResourceUtils.getFile("classpath:failresult.txt").getAbsolutePath());
     }
 }
