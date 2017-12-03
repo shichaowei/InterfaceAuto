@@ -1,6 +1,7 @@
 casedata:                 
-    - steps: 
+    - 
         # 登录
+        name: login
         request:
             url: apiservice
             method: POST
@@ -36,11 +37,12 @@ casedata:
         responsehandler:
             # key为response的路径
             content: ${getmingwen($content,"DWERP@#12$3458ta")}
-        validate:
+        validate: 
             - {"check": "body.statusCode", "comparator": "eq", "expect": 600 }
+            - {"check": "statusCode", "comparator": "eq", "expect": 600 }
             - {"check": "body.content.data.userInfo.contactPhone","comparator": "eq", "expect": 18767191571}
             
-    - steps:
+    -
         # 获取配送区域和门店信息
         name: get distribution and store information
         request:
@@ -76,7 +78,7 @@ casedata:
             - {"check": "body.msg", "comparator": "eq", "expect": "获取配送区域信息成功"}
             - {"check": "body.content.data.dispatchAreaInfoList[0].dispatchAreaCode", "comparator": "eq", "expect": "002"}
 
-    - steps:
+    -
         name: search get store
         request:
             url: apiservice
@@ -112,7 +114,7 @@ casedata:
             - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
             - {"check": "body.msg", "comparator": "eq", "expect": ""}
 
-    - steps:
+    -
         # 清空购物车
         name: empty the cart
         request:
@@ -146,7 +148,7 @@ casedata:
             - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
             - {"check": "body.msg", "comparator": "eq", "expect": ""}
 
-    - steps:
+    -
         # 获取类目列表
         name:  get category list
         request:
@@ -182,7 +184,7 @@ casedata:
             - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
             - {"check": "body.msg", "comparator": "eq", "expect": ""}
             
-    - steps:
+    -
         # 获取品牌列表
         name:  get brand list
         request:
@@ -218,7 +220,7 @@ casedata:
             - {"check": "body.statusCode", "comparator": "eq", "expect": 600}
             - {"check": "body.msg", "comparator": "eq", "expect": ""}        
 
-    - steps:
+    -
         name:  get brand list
         request:
             url: apiservice
