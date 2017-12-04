@@ -1,1 +1,39 @@
 /target/
+src/main/java/com/fengdai/qa/testcase/TestFd.java
+.settings/org.eclipse.m2e.core.prefs
+.settings/org.eclipse.jdt.core.prefs
+.settings/org.eclipse.core.resources.prefs
+test-output/testng.css
+test-output/index.html
+test-output/failed.png
+test-output/emailable-report.html
+test-output/collapseall.gif
+test-output/bullet_point.png
+test-output/Default suite/testng-failed.xml
+test-output/Default suite/Default test.xml
+test-output/Default suite/Default test.html
+src/main/resources/testxiaomifeng.json
+src/main/resources/testDF.json
+src/main/java/com/fengdai/qa/testcase/TestJson.java
+test-output/old/Default suite/methods-not-run.html
+test-output/old/Default suite/methods-alphabetical.html
+test-output/old/Default suite/main.html
+test-output/old/Default suite/index.html
+test-output/old/Default suite/groups.html
+test-output/old/Default suite/classes.html
+test-output/old/Default suite/Default test.properties
+test-output/navigator-bullet.png
+test-output/junitreports/TEST-com.fengdai.qa.testcase.TestFd.xml
+test-output/junitreports/TEST-com.fengdai.qa.testcase.TestDw.xml
+test-output/jquery-1.7.1.min.js
+test-output/testng-results.xml
+test-output/testng-reports.js
+test-output/testng-reports.css
+test-output/testng-failed.xml
+test-output/skipped.png
+test-output/passed.png
+test-output/old/index.html
+test-output/old/Default suite/toc.html
+test-output/old/Default suite/testng.xml.html
+test-output/old/Default suite/reporter-output.html
+test-output/old/Default suite/methods.html
