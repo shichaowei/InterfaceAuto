@@ -17,7 +17,7 @@ casedata:
             token: cookie.token
         validate:
             - {"check": "statusCode", "comparator": "eq", "expect": 200}
-            - {"check": "body.phone","comparator": "eq", "expect": 18667906998}
+            - {"check": "body.phone","comparator": "eq", "expect": 18611111111}
             
     - steps:
         name: zhuanzhang
