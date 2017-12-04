@@ -55,4 +55,8 @@ public class StepDetail{
 		public void setValidate(ArrayList<ValidateMeta> validate) {
 			this.validate = validate;
 		}
+		
+		public String toString(){
+			return "url:"+request.getUrl()+"---"+"method:"+request.getMethod()+"---Parameters:"+request.getParams()+"----Jsondata:"+request.getJsondata();
+		}
 	}

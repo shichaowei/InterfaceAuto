@@ -13,7 +13,6 @@ import org.yaml.snakeyaml.Yaml;
 import com.alibaba.fastjson.JSONObject;
 import com.fengdai.qa.meta.CaseMeta;
 import com.fengdai.qa.util.Utils;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import io.restassured.path.json.JsonPath;
 
@@ -66,7 +65,7 @@ public class TestStr {
         InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:test3.yaml"));
 //        System.out.println(((ArrayList<Object>)yaml.load(in)).get(0).toString());
         CaseMeta teStepMetas= yaml.loadAs(in, CaseMeta.class);
-        HashMap<String, Object> var1 = teStepMetas.getCasedata().get(1).getStepDetail().getRequest().getJsondata();
+        HashMap<String, Object> var1 = teStepMetas.getCasedata().get(1).getRequest().getJsondata();
 		System.out.println(var1);
 //		HashMap<String, Object> var1 = JSONObject.parseObject(JSONObject.toJSONString(var), HashMap.class);
 		handleMapdata(var1, bindmap);

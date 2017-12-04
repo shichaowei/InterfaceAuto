@@ -9,14 +9,14 @@ public class RequestMeta {
 	String method;
 	HashMap<String, String> headers;
 	HashMap<String, String> cookie;
-	HashMap<String, Object> formdata;
+	HashMap<String, Object> params;
 	HashMap<String, Object> jsondata;
 	
-	public HashMap<String, Object> getFormdata() {
-		return formdata;
+	public HashMap<String, Object> getParams() {
+		return params;
 	}
-	public void setFormdata(HashMap<String, Object> formdata) {
-		this.formdata = formdata;
+	public void setParams(HashMap<String, Object> params) {
+		this.params = params;
 	}
 	public HashMap<String, Object> getJsondata() {
 		return jsondata;

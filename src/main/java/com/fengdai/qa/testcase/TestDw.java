@@ -24,7 +24,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.fengdai.qa.meta.CaseMeta;
 import com.fengdai.qa.meta.RequestMeta;
 import com.fengdai.qa.meta.StepDetail;
-import com.fengdai.qa.meta.StepMeta;
 import com.fengdai.qa.meta.ValidateMeta;
 import com.fengdai.qa.util.Utils;
 import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
@@ -40,7 +39,7 @@ public class TestDw {
 
 	@BeforeTest
 	public void befortest(){
-		RestAssured.baseURI = "http://opapi.dev.e-dewin.com";
+//		RestAssured.baseURI = "http://opapi.dev.e-dewin.com";
 	}
 
 	@AfterTest
@@ -139,7 +138,7 @@ public class TestDw {
 				}else 
 				if(v.equals("request.formdata")) {
 					//处理formdata 处理request中有$var ${sdfdfds()}情况
-					HashMap<String, Object>  var1 = requestMeta.getFormdata();
+					HashMap<String, Object>  var1 = requestMeta.getParams();
 					Utils.handleObject(var1, bindmap);
 					bindresult.put(k,JSONObject.toJSONString(var1));
 				}
@@ -151,52 +150,67 @@ public class TestDw {
 
 
 	@Test(dataProvider ="data")
-	public void test(StepMeta step){
-
+	public void test(StepDetail step) throws InterruptedException{
 		Response response = null;
-    	StepDetail stepDetail =step.getStepDetail();
+    	StepDetail stepDetail =step;
     	RequestMeta request=stepDetail.getRequest();
     	RequestSpecification RS = given();
     	//处理requestbinds
-    	HashMap<String, String> requestBinds = handleRequestBind(step.getStepDetail(),bindmap);
+    	HashMap<String, String> requestBinds = handleRequestBind(stepDetail,bindmap);
     	if(requestBinds != null)
     		bindmap.putAll(requestBinds);
-    	//form
-    	HashMap<String, Object> var = request.getFormdata();
-    	if(var!=null){
-        	var.forEach((k,v)->{
-        			v = Utils.handleObject(v, bindmap);
-					RS.param(k, v);
-    		});
-    	}
-    	//json
-    	HashMap<String, Object> jsonvar = request.getJsondata();
-    	if(jsonvar!=null){
-    		jsonvar.forEach((k,v)->{
-    			v = Utils.handleObject(v, bindmap);
-    			jsonvar.put(k, v);
-    		});
-    		String jsonvarbody = JSONObject.toJSONString(jsonvar);
-//    		System.out.println("body is :"+jsonvarbody);
-//    		RS.body(EncrptUtil.encrpt(JSONObject.toJSONString(jsonvar), password));
-
-    		//处理requesthandler
-        	HashMap<String,String> requesthandler = stepDetail.getRequesthandler();
-        	if(requesthandler!=null){
-        		requesthandler.forEach((k,v)->{
-            	    v = (String) Utils.handleObject(v, bindmap);
-            	    if(k.matches("^body$")) {
-            	    	RS.body(v);
-            	    }else if (k.matches("^cookie.*")) {
-            	    	Matcher matcher = Pattern.compile("^cookie.(.*)").matcher(v);
-            	    	if(matcher.find()){
-            	    		Object cookievalue=Utils.handleObject(v, bindmap);
-    						RS.cookie(matcher.group(1), cookievalue);
-            	    	}
-					}
-        		});
-        	}
-    	}
+    	switch (request.getMethod().toLowerCase()) {
+			case "get":
+				//getparams
+		    	HashMap<String, Object> getparams = request.getParams();
+		    	if(getparams!=null){
+		    		getparams.forEach((k,v)->{
+		    			v = Utils.handleObject(v, bindmap);
+		    			RS.param(k, v);
+		    		});
+		    	}
+				break;
+			case "post":
+				//form
+		    	HashMap<String, Object> var = request.getParams();
+		    	if(var!=null){
+		        	var.forEach((k,v)->{
+		        			v = Utils.handleObject(v, bindmap);
+							RS.param(k, v);
+		    		});
+		    	}
+		    	
+		    	//json
+		    	HashMap<String, Object> jsonvar = request.getJsondata();
+		    	if(jsonvar!=null){
+		    		jsonvar.forEach((k,v)->{
+		    			v = Utils.handleObject(v, bindmap);
+		    			jsonvar.put(k, v);
+		    		});
+		    		String jsonvarbody = JSONObject.toJSONString(jsonvar);
+		    		//处理requesthandler
+		        	HashMap<String,String> requesthandler = stepDetail.getRequesthandler();
+		        	if(requesthandler!=null){
+		        		requesthandler.forEach((k,v)->{
+		            	    v = (String) Utils.handleObject(v, bindmap);
+		            	    if(k.matches("^body$")) {
+		            	    	RS.body(v);
+		            	    }else if (k.matches("^cookie.*")) {
+		            	    	Matcher matcher = Pattern.compile("^cookie.(.*)").matcher(v);
+		            	    	if(matcher.find()){
+		            	    		Object cookievalue=Utils.handleObject(v, bindmap);
+		    						RS.cookie(matcher.group(1), cookievalue);
+		            	    	}
+							}
+		        		});
+		        	}
+		    	}
+				break;
+	
+			default:
+				break;
+		}
+    	
 
     	//header
     	HashMap<String, String> var1= request.getHeaders();
@@ -205,7 +219,7 @@ public class TestDw {
     			RS.header(k, Utils.checkGetAll(v, bindmap));
 		});
     	}
-    	//Cookie
+    	//Cookie(最后是cookie 因为header有可能有cookie 以cookie的参数为最后的结果)
     	HashMap<String, String> var2= request.getCookie();
     	if(var2!=null){
         	var2.forEach((k,v)->{
@@ -215,14 +229,14 @@ public class TestDw {
 
 
     	//URL(增加URL参数化)
-    	String[] testUrl = step.getStepDetail().getRequest().getUrl().split("/");
+    	String[] testUrl = stepDetail.getRequest().getUrl().split("/");
     	StringBuffer urlHandled= new StringBuffer();
     	for (int i = 0; i < testUrl.length; i++) {
 			urlHandled.append(Utils.checkGetAll(testUrl[i], bindmap));
 			if(!(testUrl.length ==i+1))
 				urlHandled.append("/");
 		}
-    	switch (step.getStepDetail().getRequest().getMethod().toLowerCase()) {
+    	switch (stepDetail.getRequest().getMethod().toLowerCase()) {
 			case "post":
 				response = RS.post(urlHandled.toString());
 				break;
@@ -234,14 +248,14 @@ public class TestDw {
 				break;
 		}
     	//绑定
-    	HashMap<String, String> responseBinds = handleResponseBind(step.getStepDetail(), response,bindmap);
+    	HashMap<String, String> responseBinds = handleResponseBind(stepDetail, response,bindmap);
     	if(responseBinds != null)
     		bindmap.putAll(responseBinds);
 
     	//处理responsehandler
+    	
     	HashMap sHashMap = JSONObject.parseObject(response.asString(), HashMap.class);
-    	HashMap<String
-    	,String> responsehandler = stepDetail.getResponsehandler();
+    	HashMap<String,String> responsehandler = stepDetail.getResponsehandler();
     	if(responsehandler!=null){
     		responsehandler.forEach((k,v)->{
         		sHashMap.put(k, Utils.checkGetAll(v, bindmap));
@@ -253,6 +267,7 @@ public class TestDw {
 
 
 
+		System.out.println("请求的url:"+urlHandled);
 		System.out.println("解密后的数据："+sHashMap);
 
 
@@ -262,24 +277,28 @@ public class TestDw {
     	for(ValidateMeta var3:var3list){
     		if(var3.getCheck().matches("^body\\.(.*)")){
     			if(var3.getComparator().equals("eq")){
-    				String expected = JsonPath.from(JSONObject.toJSONString(sHashMap)).getString(Utils.getJsonPath(var3.getCheck()));
-    					Assert.assertEquals( expected,var3.getExpect());
+    				String actual = JsonPath.from(JSONObject.toJSONString(sHashMap)).getString(Utils.getJsonPath(var3.getCheck()));
+    				Assert.assertEquals( actual,var3.getExpect());
 //    				if(var3.getExpect().equals(expected)){
 //    					System.out.println(var3.getExpect()+":check Ok");
 //    				}
     			}
-    		}
+    		}else if (var3.getCheck().matches("^statusCode$")) {
+    			if(var3.getComparator().equals("eq")){
+    				Assert.assertEquals(Integer.valueOf(response.getStatusCode()), Integer.valueOf(var3.getExpect()));
+    			}
+			}
     	}
 
 	}
 
 	@DataProvider(name="data")
-	public Iterator<StepMeta> dataprovider() throws FileNotFoundException{
+	public Iterator<StepDetail> dataprovider() throws FileNotFoundException{
 		Yaml yaml = new Yaml();
 //      URL url = Test.class.getClassLoader().getResource("test.yaml");
 
         //获取test.yaml文件中的配置数据，然后转换为obj，
-        InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:test3.yaml"));
+        InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:testYaml.yaml"));
 //        System.out.println(((ArrayList<Object>)yaml.load(in)).get(0).toString());
         CaseMeta teStepMetas= yaml.loadAs(in, CaseMeta.class);
         return teStepMetas.getCasedata().iterator();

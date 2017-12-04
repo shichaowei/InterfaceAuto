@@ -8,13 +8,13 @@ import javax.print.StreamPrintService;
 
 
 public class CaseMeta {
-	private ArrayList<StepMeta> casedata;
+	private ArrayList<StepDetail> casedata;
 
-	public ArrayList<StepMeta> getCasedata() {
+	public ArrayList<StepDetail> getCasedata() {
 		return casedata;
 	}
 
-	public void setCasedata(ArrayList<StepMeta> casedata) {
+	public void setCasedata(ArrayList<StepDetail> casedata) {
 		this.casedata = casedata;
 	}
 

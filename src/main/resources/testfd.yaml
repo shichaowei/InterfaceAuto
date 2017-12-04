@@ -1,5 +1,5 @@
 casedata:
-    - steps: 
+    - 
         name: get token
         request:
             url: account/user/passwd_smscode_login
@@ -19,7 +19,7 @@ casedata:
             - {"check": "statusCode", "comparator": "eq", "expect": 200}
             - {"check": "body.phone","comparator": "eq", "expect": 18611111111}
             
-    - steps:
+    -
         name: zhuanzhang
         request:
             url: Finance/adjust_funds/post
