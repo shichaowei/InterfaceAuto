@@ -1,4 +1,4 @@
-package com.fengdai.qa.testcase;
+package com.fengdai.qa.test;
 
 import static io.restassured.RestAssured.given;
 

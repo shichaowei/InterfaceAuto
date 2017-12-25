@@ -1,6 +1,19 @@
 package com.fengdai.qa.util;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.RandomAccessFile;
+import java.io.Reader;
 
 import org.springframework.util.ResourceUtils;
 
@@ -47,7 +60,7 @@ public class FileUtil {
 			}
 		}
 	}
-	
+
     /**
      * 以字节为单位读取文件，常用于读二进制文件，如图片、声音、影像等文件。
      */
@@ -165,7 +178,7 @@ public class FileUtil {
                 // 显示行号
 //                System.out.println("line " + line + ": " + tempString);
                 result+=tempString;
-                result+=",";
+//                result+=",";
                 line++;
             }
             reader.close();
