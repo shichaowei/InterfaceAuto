@@ -1,0 +1,1071 @@
+casedata:
+- name: http://10.200.141.65/account/user/login
+  request:
+    cookie: null
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '33'
+      Content-Type: application/x-www-form-urlencoded
+    jsondata: null
+    method: POST
+    params:
+      password: '123456'
+      phone: '18667906998'
+    url: http://10.200.141.65/account/user/login
+  requestbind: null
+  requesthandler: null
+  responsebind:
+    token: cookie.token
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ProductWeb/product/sub_list/FDKDQB001
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/ProductWeb/product/sub_list/FDKDQB001
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+    
+    
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0002
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0002
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad_place/adplace_detail/PWAPPBAN0024
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad_place/adplace_detail/PWAPPBAN0024
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/SystemWeb/about/version?deviceType=android&versionCode=131
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/SystemWeb/about/version?deviceType=android&versionCode=131
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0003
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0003
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/article/page?categoryId=4551B73E738B4CCA87FF9CB3EECC833A&pageSize=10&pageNum=1
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/article/page?categoryId=4551B73E738B4CCA87FF9CB3EECC833A&pageSize=10&pageNum=1
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0004
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0004
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ShopWeb/shop/app
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/ShopWeb/shop/app
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad_place/adplace_detail/PWAPPBAN0033
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad_place/adplace_detail/PWAPPBAN0033
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0026
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0026
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0025
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0025
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0027
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0027
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0024
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0024
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ShopWeb/shop/homePage
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/ShopWeb/shop/homePage
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0033
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/OperationWeb/ad/select_adc/PWAPPBAN0033
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ThirdpartyWeb/location/add
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '262'
+      Content-Type: application/json; charset=utf-8
+    jsondata:
+      address: 中国浙江省杭州市滨江区秋溢路
+      phone: '+8618667906998'
+      latitude: '30.194912'
+      userAccount: ''
+      source: android_pocketwallet
+      event: open_first
+      userName: ''
+      deviceId: '861723033141248'
+      operator: UNICOM
+      longitude: '120.209036'
+    method: POST
+    params: null
+    url: http://10.200.141.65/ThirdpartyWeb/location/add
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ThirdpartyWeb/device
+  request:
+    cookie:
+      token: $token
+    headers:
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '182'
+      Content-Type: application/json; charset=utf-8
+    jsondata:
+      system: Flyme 6.2.0.0A
+      model: M5s
+      source: android_pocketwallet
+      event: open_first
+      brand: Meizu
+      deviceId: '861723033141248'
+      operator: UNICOM
+      manufacturer: Meizu
+    method: POST
+    params: null
+    url: http://10.200.141.65/ThirdpartyWeb/device
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/UserWeb/sys_user/login_user
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/UserWeb/sys_user/login_user
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ThirdpartyWeb/location/addByUser
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '283'
+      Content-Type: application/json; charset=utf-8
+    jsondata:
+      address: 中国浙江省杭州市滨江区秋溢路
+      phone: '+8618667906998'
+      latitude: '30.194912'
+      userAccount: '18667906998'
+      source: android_pocketwallet
+      event: login_first
+      userName: 魏士超
+      deviceId: '861723033141248'
+      operator: UNICOM
+      longitude: '120.209036'
+    method: POST
+    params: null
+    url: http://10.200.141.65/ThirdpartyWeb/location/addByUser
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ThirdpartyWeb/device
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '183'
+      Content-Type: application/json; charset=utf-8
+    jsondata:
+      system: Flyme 6.2.0.0A
+      model: M5s
+      source: android_pocketwallet
+      event: login_first
+      brand: Meizu
+      deviceId: '861723033141248'
+      operator: UNICOM
+      manufacturer: Meizu
+    method: POST
+    params: null
+    url: http://10.200.141.65/ThirdpartyWeb/device
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/UserWeb/sys_user/login_user
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/UserWeb/sys_user/login_user
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/funds/bankcard
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/funds/bankcard
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/funds/fundaccount
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/funds/fundaccount
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/FinanceWeb/credit_card/forbids/5212F38B6EAF453ABB543E797F39C0AA
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/FinanceWeb/credit_card/forbids/5212F38B6EAF453ABB543E797F39C0AA
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/RiskControlWeb/loan_apply/count_installmenting
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/RiskControlWeb/loan_apply/count_installmenting
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ShopWeb/order/user_count
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/ShopWeb/order/user_count
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/MqserverWeb/message/number_unread
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/MqserverWeb/message/number_unread
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/RiskControlWeb/credit/query_deep?productId=5212F38B6EAF453ABB543E797F39C0AA
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/RiskControlWeb/credit/query_deep?productId=5212F38B6EAF453ABB543E797F39C0AA
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/RiskControlWeb/loan_apply/can_apply
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/RiskControlWeb/loan_apply/can_apply
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ThirdpartyWeb/location/addByUser
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '283'
+      Content-Type: application/json; charset=utf-8
+    jsondata:
+      address: 中国浙江省杭州市滨江区秋溢路
+      phone: '+8618667906998'
+      latitude: '30.194912'
+      userAccount: '18667906998'
+      source: android_pocketwallet
+      event: withdrawals
+      userName: 魏士超
+      deviceId: '861723033141248'
+      operator: UNICOM
+      longitude: '120.209036'
+    method: POST
+    params: null
+    url: http://10.200.141.65/ThirdpartyWeb/location/addByUser
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ThirdpartyWeb/device
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '183'
+      Content-Type: application/json; charset=utf-8
+    jsondata:
+      system: Flyme 6.2.0.0A
+      model: M5s
+      source: android_pocketwallet
+      event: withdrawals
+      brand: Meizu
+      deviceId: '861723033141248'
+      operator: UNICOM
+      manufacturer: Meizu
+    method: POST
+    params: null
+    url: http://10.200.141.65/ThirdpartyWeb/device
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ThirdpartyWeb/thirdCloud/bqs/antifraudRisk
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+      Content-Length: '60'
+      Content-Type: application/x-www-form-urlencoded
+    jsondata: null
+    method: POST
+    params:
+      tokenKey: a60165a7-bbe5-4251-b531-50290f4466f0
+      eventType: loan
+    url: http://10.200.141.65/ThirdpartyWeb/thirdCloud/bqs/antifraudRisk
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/SystemWeb/about/evaluation
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/SystemWeb/about/evaluation
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/UserWeb/sys_user/login_user
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/UserWeb/sys_user/login_user
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/funds/bankcard
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/funds/bankcard
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/FinanceWeb/credit_card/forbids/5212F38B6EAF453ABB543E797F39C0AA
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/FinanceWeb/credit_card/forbids/5212F38B6EAF453ABB543E797F39C0AA
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/funds/fundaccount
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/funds/fundaccount
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/RiskControlWeb/loan_apply/count_installmenting
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/RiskControlWeb/loan_apply/count_installmenting
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/ShopWeb/order/user_count
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/ShopWeb/order/user_count
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/MqserverWeb/message/number_unread
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/MqserverWeb/message/number_unread
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/RiskControlWeb/credit/query_deep?productId=5212F38B6EAF453ABB543E797F39C0AA
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/RiskControlWeb/credit/query_deep?productId=5212F38B6EAF453ABB543E797F39C0AA
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'
+- name: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  request:
+    cookie:
+      token: $token
+    headers:
+      Cookie: token=36B0847182094CE38267B509AEE0C873.04C5DD4AF59401E09543C0F7E9CE04F0
+      Connection: Keep-Alive
+      User-Agent: okhttp/3.4.1
+      Host: 10.200.141.65
+      Accept-Encoding: gzip
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - check: statusCode
+    comparator: eq
+    expect: '200'

@@ -1,0 +1,209 @@
+!!com.fengdai.qa.meta.CaseMeta
+casedata:
+- name: http://10.200.141.65:85/account/user/password/pay/check?password=123qwe
+  request:
+    cookie: null
+    headers: {Cookie: origin=android; version=2.5.1-dev; channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb22eaa1-0fa5a715c-5c193b5c-38400-1601bb22ead8; CNZZDATA1261550910=384797188-1512287875-%7C1512287875,
+      Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/account/user/password/pay/check?password=123qwe
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/RiskControlWeb/loan_apply/submit_loan
+  request:
+    cookie: null
+    headers: {Origin: 'http://10.200.141.65:85', Cookie: origin=android; version=2.5.1-dev;
+        channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb22eaa1-0fa5a715c-5c193b5c-38400-1601bb22ead8; CNZZDATA1261550910=384797188-1512287875-%7C1512287875,
+      Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', Content-Length: '333', X-API-Version: web-browser-1.0.0,
+      Content-Type: application/json}
+    jsondata: {loanType: withdrawCash, applyChannel: QD000005, rechargeNo: null, rechargeName: null,
+      loanAmount: 600, creditFlag: false, mobilePhone: '18667906998', creditCardFlag: true,
+      certificateNumber: '410581199007129054', loginName: '18667906998', subProductId: 94d8ea1ea5604c61ba22830372ae1ff6,
+      fullname: 榄忓＋瓒�, applyNumber: 1}
+    method: POST
+    params: null
+    url: http://10.200.141.65:85/RiskControlWeb/loan_apply/submit_loan
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  request:
+    cookie: null
+    headers: {Cookie: entrance=native; origin=android; version=2.5.1-dev; channel=;
+        token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF; UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b;
+        CNZZDATA1261550910=842656702-1512287875-%7C1512287875, Accept: 'application/json,
+        text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet, User-Agent: 'Mozilla/5.0
+        (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36 (KHTML, like
+        Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36', Referer: 'http://10.200.141.65:85/',
+      Host: '10.200.141.65:85', Accept-Encoding: 'gzip, deflate', Accept-Language: 'zh-CN,en-US;q=0.8',
+      X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/FinanceWeb/credit_card/pocket_bill?isIssue=true&repayStatus=TODO
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/FinanceWeb/credit_card/pocket_bill?isIssue=false
+  request:
+    cookie: null
+    headers: {Cookie: entrance=native; origin=android; version=2.5.1-dev; channel=;
+        token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF; UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b;
+        CNZZDATA1261550910=842656702-1512287875-%7C1512287875, Accept: 'application/json,
+        text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet, User-Agent: 'Mozilla/5.0
+        (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36 (KHTML, like
+        Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36', Referer: 'http://10.200.141.65:85/',
+      Host: '10.200.141.65:85', Accept-Encoding: 'gzip, deflate', Accept-Language: 'zh-CN,en-US;q=0.8',
+      X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/FinanceWeb/credit_card/pocket_bill?isIssue=false
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/funds/fundaccount
+  request:
+    cookie: null
+    headers: {Cookie: origin=android; version=2.5.1-dev; channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b; CNZZDATA1261550910=842656702-1512287875-%7C1512287875;
+        entrance=, Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/funds/fundaccount
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/ProductWeb/product/sub_list/FDKDQB001
+  request:
+    cookie: null
+    headers: {Cookie: origin=android; version=2.5.1-dev; channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b; CNZZDATA1261550910=842656702-1512287875-%7C1512287875;
+        entrance=, Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/ProductWeb/product/sub_list/FDKDQB001
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/ActivityWeb/cardCoupons?category=REPAYMENT_FEE&channelCode=QD000005&payAction=CREDIT_PART_RULE&productId=5212F38B6EAF453ABB543E797F39C0AA&useType=usable
+  request:
+    cookie: null
+    headers: {Cookie: origin=android; version=2.5.1-dev; channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b; CNZZDATA1261550910=842656702-1512287875-%7C1512287875;
+        entrance=, Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/ActivityWeb/cardCoupons?category=REPAYMENT_FEE&channelCode=QD000005&payAction=CREDIT_PART_RULE&productId=5212F38B6EAF453ABB543E797F39C0AA&useType=usable
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/account/user/password/pay/check?password=123qwe
+  request:
+    cookie: null
+    headers: {Cookie: origin=android; version=2.5.1-dev; channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b; CNZZDATA1261550910=842656702-1512287875-%7C1512287875;
+        entrance=, Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/account/user/password/pay/check?password=123qwe
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/FinanceWeb/credit_card/repay?distributeId=&money=100&productId=5212F38B6EAF453ABB543E797F39C0AA
+  request:
+    cookie: null
+    headers: {Cookie: origin=android; version=2.5.1-dev; channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b; CNZZDATA1261550910=842656702-1512287875-%7C1512287875;
+        entrance=, Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/FinanceWeb/credit_card/repay?distributeId=&money=100&productId=5212F38B6EAF453ABB543E797F39C0AA
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
+- name: http://10.200.141.65:85/FinanceWeb/credit_card/pocket_bill?isIssue=false
+  request:
+    cookie: null
+    headers: {Cookie: origin=android; version=2.5.1-dev; channel=; token=8C32FCB38F5F41E19EB7E6D053A2AC47.BE415E4C3CF1D0ECCADA059C8338A1AF;
+        UM_distinctid=1601bb35528a3-019dfa2f3-5c193b5c-38400-1601bb3552a8b; CNZZDATA1261550910=842656702-1512287875-%7C1512287875;
+        entrance=, Accept: 'application/json, text/plain, */*', X-Requested-With: cn.pocketwallet.pocketwallet,
+      User-Agent: 'Mozilla/5.0 (Linux; Android 6.0; M5s Build/MRA58K; wv) AppleWebKit/537.36
+        (KHTML, like Gecko) Version/4.0 Chrome/44.0.2403.147 Mobile Safari/537.36',
+      Referer: 'http://10.200.141.65:85/', Host: '10.200.141.65:85', Accept-Encoding: 'gzip,
+        deflate', Accept-Language: 'zh-CN,en-US;q=0.8', X-API-Version: web-browser-1.0.0}
+    jsondata: null
+    method: GET
+    params: null
+    url: http://10.200.141.65:85/FinanceWeb/credit_card/pocket_bill?isIssue=false
+  requestbind: null
+  requesthandler: null
+  responsebind: null
+  responsehandler: null
+  validate:
+  - {check: statusCode, comparator: eq, expect: '200'}
