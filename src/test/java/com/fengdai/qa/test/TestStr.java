@@ -12,7 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fengdai.qa.meta.CaseMeta;
-import com.fengdai.qa.util.Utils;
+import com.fengdai.qa.util.CaseUtil;
 
 import io.restassured.path.json.JsonPath;
 
@@ -24,7 +24,7 @@ public class TestStr {
 		var1.forEach((k1,v1)->{
 			System.out.println(k1+"----"+v1);
 			if(String.class.isInstance(v1)) {
-				var1.put(k1, Utils.checkGetAll((String)v1, bindmap));
+				var1.put(k1, CaseUtil.checkGetAll((String)v1, bindmap));
 			}
 			else {
 				if(ArrayList.class.isInstance(v1)){
@@ -41,7 +41,7 @@ public class TestStr {
 		((ArrayList<Object>) v1).stream().forEach(listvar ->{  
             if(String.class.isInstance(listvar)){
             	v1.remove(listvar);
-            	v1.add( Utils.checkGetAll((String)listvar, bindmap));
+            	v1.add( CaseUtil.checkGetAll((String)listvar, bindmap));
             }else if (ArrayList.class.isInstance(listvar)) {
 				handleListdata((ArrayList<Object>) listvar, bindmap);
 			}else if (HashMap.class.isInstance(listvar)) {

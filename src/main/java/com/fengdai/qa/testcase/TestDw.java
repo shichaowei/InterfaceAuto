@@ -25,7 +25,7 @@ import com.fengdai.qa.meta.CaseMeta;
 import com.fengdai.qa.meta.RequestMeta;
 import com.fengdai.qa.meta.StepDetail;
 import com.fengdai.qa.meta.ValidateMeta;
-import com.fengdai.qa.util.Utils;
+import com.fengdai.qa.util.CaseUtil;
 import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
 import io.restassured.RestAssured;
@@ -73,7 +73,7 @@ public class TestDw {
 					if(matcher.find()){
 						path = matcher.group(1);
 					}
-					bindresult.put(k, (String) Utils.checkGetAll(response.getCookie(path),bindmap));
+					bindresult.put(k, (String) CaseUtil.checkGetAll(response.getCookie(path),bindmap));
 				}else if (v.matches("^content.*")) {
 
 						Pattern rp = Pattern.compile("^content.(.*)");
@@ -92,11 +92,11 @@ public class TestDw {
 						}
 						if(!ifmiwenpath) {
 							if(String.class.isInstance(response.getBody().path(path)))
-								bindresult.put(k, (String) Utils.checkGetAll(response.getBody().path(path), bindmap));
+								bindresult.put(k, (String) CaseUtil.checkGetAll(response.getBody().path(path), bindmap));
 							else
 								bindresult.put(k, response.getBody().path(path));
 						}else {
-							HashMap result = Utils.getmingwen(response.getBody().path("content"), "DWERP@#12$3458ta");
+							HashMap result = CaseUtil.getmingwen(response.getBody().path("content"), "DWERP@#12$3458ta");
 //							System.out.println(JSONObject.toJSONString(result));
 							Matcher mat1= Pattern.compile("^content.(.*)").matcher(path);
 							if(mat1.find()){
@@ -133,13 +133,13 @@ public class TestDw {
 				if(v.equals("request.jsondata")) {
 						//处理jsondata 处理request中有$var ${sdfdfds()}情况
 						HashMap<String, Object>  var1 = requestMeta.getJsondata();
-						Utils.handleObject(var1, bindmap);
+						CaseUtil.handleObject(var1, bindmap);
 						bindresult.put(k,JSONObject.toJSONString(var1));
 				}else 
 				if(v.equals("request.formdata")) {
 					//处理formdata 处理request中有$var ${sdfdfds()}情况
 					HashMap<String, Object>  var1 = requestMeta.getParams();
-					Utils.handleObject(var1, bindmap);
+					CaseUtil.handleObject(var1, bindmap);
 					bindresult.put(k,JSONObject.toJSONString(var1));
 				}
 			});
@@ -165,7 +165,7 @@ public class TestDw {
 		    	HashMap<String, Object> getparams = request.getParams();
 		    	if(getparams!=null){
 		    		getparams.forEach((k,v)->{
-		    			v = Utils.handleObject(v, bindmap);
+		    			v = CaseUtil.handleObject(v, bindmap);
 		    			RS.param(k, v);
 		    		});
 		    	}
@@ -175,7 +175,7 @@ public class TestDw {
 		    	HashMap<String, Object> var = request.getParams();
 		    	if(var!=null){
 		        	var.forEach((k,v)->{
-		        			v = Utils.handleObject(v, bindmap);
+		        			v = CaseUtil.handleObject(v, bindmap);
 							RS.param(k, v);
 		    		});
 		    	}
@@ -184,7 +184,7 @@ public class TestDw {
 		    	HashMap<String, Object> jsonvar = request.getJsondata();
 		    	if(jsonvar!=null){
 		    		jsonvar.forEach((k,v)->{
-		    			v = Utils.handleObject(v, bindmap);
+		    			v = CaseUtil.handleObject(v, bindmap);
 		    			jsonvar.put(k, v);
 		    		});
 		    		String jsonvarbody = JSONObject.toJSONString(jsonvar);
@@ -192,13 +192,13 @@ public class TestDw {
 		        	HashMap<String,String> requesthandler = stepDetail.getRequesthandler();
 		        	if(requesthandler!=null){
 		        		requesthandler.forEach((k,v)->{
-		            	    v = (String) Utils.handleObject(v, bindmap);
+		            	    v = (String) CaseUtil.handleObject(v, bindmap);
 		            	    if(k.matches("^body$")) {
 		            	    	RS.body(v);
 		            	    }else if (k.matches("^cookie.*")) {
 		            	    	Matcher matcher = Pattern.compile("^cookie.(.*)").matcher(v);
 		            	    	if(matcher.find()){
-		            	    		Object cookievalue=Utils.handleObject(v, bindmap);
+		            	    		Object cookievalue=CaseUtil.handleObject(v, bindmap);
 		    						RS.cookie(matcher.group(1), cookievalue);
 		            	    	}
 							}
@@ -216,14 +216,14 @@ public class TestDw {
     	HashMap<String, String> var1= request.getHeaders();
     	if(var1!=null){
     	var1.forEach((k,v)->{
-    			RS.header(k, Utils.checkGetAll(v, bindmap));
+    			RS.header(k, CaseUtil.checkGetAll(v, bindmap));
 		});
     	}
     	//Cookie(最后是cookie 因为header有可能有cookie 以cookie的参数为最后的结果)
     	HashMap<String, String> var2= request.getCookie();
     	if(var2!=null){
         	var2.forEach((k,v)->{
-        			RS.cookie(k,Utils.checkGetAll(v, bindmap));
+        			RS.cookie(k,CaseUtil.checkGetAll(v, bindmap));
     		});
     	}
 
@@ -232,7 +232,7 @@ public class TestDw {
     	String[] testUrl = stepDetail.getRequest().getUrl().split("/");
     	StringBuffer urlHandled= new StringBuffer();
     	for (int i = 0; i < testUrl.length; i++) {
-			urlHandled.append(Utils.checkGetAll(testUrl[i], bindmap));
+			urlHandled.append(CaseUtil.checkGetAll(testUrl[i], bindmap));
 			if(!(testUrl.length ==i+1))
 				urlHandled.append("/");
 		}
@@ -258,7 +258,7 @@ public class TestDw {
     	HashMap<String,String> responsehandler = stepDetail.getResponsehandler();
     	if(responsehandler!=null){
     		responsehandler.forEach((k,v)->{
-        		sHashMap.put(k, Utils.checkGetAll(v, bindmap));
+        		sHashMap.put(k, CaseUtil.checkGetAll(v, bindmap));
     		});
     	}
 
@@ -277,7 +277,7 @@ public class TestDw {
     	for(ValidateMeta var3:var3list){
     		if(var3.getCheck().matches("^body\\.(.*)")){
     			if(var3.getComparator().equals("eq")){
-    				String actual = JsonPath.from(JSONObject.toJSONString(sHashMap)).getString(Utils.getJsonPath(var3.getCheck()));
+    				String actual = JsonPath.from(JSONObject.toJSONString(sHashMap)).getString(CaseUtil.getJsonPath(var3.getCheck()));
     				Assert.assertEquals( actual,var3.getExpect());
 //    				if(var3.getExpect().equals(expected)){
 //    					System.out.println(var3.getExpect()+":check Ok");

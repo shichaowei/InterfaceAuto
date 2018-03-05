@@ -6,7 +6,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-public class AesUtil {
+public class DEWAesUtil {
 	public static final String VIPARA = "1269571569321021";
 	public static final String bm = "utf-8";
 

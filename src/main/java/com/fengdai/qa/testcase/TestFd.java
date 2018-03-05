@@ -6,14 +6,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.util.ResourceUtils;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -28,10 +26,8 @@ import com.fengdai.qa.meta.CaseMeta;
 import com.fengdai.qa.meta.RequestMeta;
 import com.fengdai.qa.meta.StepDetail;
 import com.fengdai.qa.meta.ValidateMeta;
-import com.fengdai.qa.util.Utils;
-import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
+import com.fengdai.qa.util.CaseUtil;
 
-import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
@@ -52,9 +48,9 @@ public class TestFd {
 
 	}
 
-	
-	
-	
+
+
+
 
 	/**
 	 * k值为要查找的value的路径
@@ -64,7 +60,7 @@ public class TestFd {
 	 */
 	public static HashMap<String, String> handleResponseBind (StepDetail stepDetail,Response response,HashMap<String, Object> bindmap) {
 //		System.out.println("进入handleResponseBind"+bindmap);
-//		System.out.println("response:"+response.asString());
+		System.out.println("response:"+response.asString());
 		HashMap<String, String> bindresult = new HashMap<>();
 		HashMap<String, String> var= stepDetail.getResponsebind();
 //		System.out.println("要绑定的var is ----"+var);
@@ -77,10 +73,10 @@ public class TestFd {
 					if(matcher.find()){
 						path = matcher.group(1);
 					}
-					bindresult.put(k, (String) Utils.checkGetAll(response.getCookie(path),bindmap));
-				}else if (v.matches("^content.*")) {
+					bindresult.put(k, (String) CaseUtil.checkGetAll(response.getCookie(path),bindmap));
+				}else if (v.matches("^body.*")) {
 
-						Pattern rp = Pattern.compile("^content.(.*)");
+						Pattern rp = Pattern.compile("^body.(.*)");
 						Matcher matcher = rp.matcher(v);
 						String path="";
 						if(matcher.find()){
@@ -96,11 +92,11 @@ public class TestFd {
 						}
 						if(!ifmiwenpath) {
 							if(String.class.isInstance(response.getBody().path(path)))
-								bindresult.put(k, (String) Utils.checkGetAll(response.getBody().path(path), bindmap));
+								bindresult.put(k, (String) CaseUtil.checkGetAll(response.getBody().path(path), bindmap));
 							else
 								bindresult.put(k, response.getBody().path(path));
 						}else {
-							HashMap result = Utils.getmingwen(response.getBody().path("content"), "DWERP@#12$3458ta");
+							HashMap result = CaseUtil.getmingwen(response.getBody().path("content"), "DWERP@#12$3458ta");
 //							System.out.println(JSONObject.toJSONString(result));
 							Matcher mat1= Pattern.compile("^content.(.*)").matcher(path);
 							if(mat1.find()){
@@ -109,7 +105,7 @@ public class TestFd {
 //							System.out.println(path.replace(path, "content")+"------"+path);
 //							System.out.println(JsonPath.from(JSONObject.toJSONString(result)).getString(path));
 							bindresult.put(k, JsonPath.from(JSONObject.toJSONString(result)).getString(path));
-							
+
 						}
 
 				}
@@ -137,13 +133,13 @@ public class TestFd {
 				if(v.equals("request.jsondata")) {
 						//处理jsondata 处理request中有$var ${sdfdfds()}情况
 						HashMap<String, Object>  var1 = requestMeta.getJsondata();
-						Utils.handleObject(var1, bindmap);
+						CaseUtil.handleObject(var1, bindmap);
 						bindresult.put(k,JSONObject.toJSONString(var1));
-				}else 
+				}else
 				if(v.equals("request.formdata")) {
 					//处理formdata 处理request中有$var ${sdfdfds()}情况
 					HashMap<String, Object>  var1 = requestMeta.getParams();
-					Utils.handleObject(var1, bindmap);
+					CaseUtil.handleObject(var1, bindmap);
 					bindresult.put(k,JSONObject.toJSONString(var1));
 				}
 			});
@@ -170,26 +166,27 @@ public class TestFd {
 		    	HashMap<String, Object> getparams = request.getParams();
 		    	if(getparams!=null){
 		    		getparams.forEach((k,v)->{
-		    			v = Utils.handleObject(v, bindmap);
+		    			v = CaseUtil.handleObject(v, bindmap);
 		    			RS.param(k, v);
 		    		});
 		    	}
 				break;
+			case "put":
 			case "post":
 				//form
 		    	HashMap<String, Object> var = request.getParams();
 		    	if(var!=null){
 		        	var.forEach((k,v)->{
-		        			v = Utils.handleObject(v, bindmap);
+		        			v = CaseUtil.handleObject(v, bindmap);
 							RS.param(k, v);
 		    		});
 		    	}
-		    	
+
 		    	//json
 		    	HashMap<String, Object> jsonvar = request.getJsondata();
 		    	if(jsonvar!=null){
 		    		jsonvar.forEach((k,v)->{
-		    			v = Utils.handleObject(v, bindmap);
+		    			v = CaseUtil.handleObject(v, bindmap);
 		    			jsonvar.put(k, v);
 		    		});
 		    		String jsonvarbody = JSONObject.toJSONString(jsonvar);
@@ -198,13 +195,13 @@ public class TestFd {
 		        	HashMap<String,String> requesthandler = stepDetail.getRequesthandler();
 		        	if(requesthandler!=null){
 		        		requesthandler.forEach((k,v)->{
-		            	    v = (String) Utils.handleObject(v, bindmap);
+		            	    v = (String) CaseUtil.handleObject(v, bindmap);
 		            	    if(k.matches("^body$")) {
 		            	    	RS.body(v);
 		            	    }else if (k.matches("^cookie.*")) {
 		            	    	Matcher matcher = Pattern.compile("^cookie.(.*)").matcher(v);
 		            	    	if(matcher.find()){
-		            	    		Object cookievalue=Utils.handleObject(v, bindmap);
+		            	    		Object cookievalue=CaseUtil.handleObject(v, bindmap);
 		    						RS.cookie(matcher.group(1), cookievalue);
 		            	    	}
 							}
@@ -214,25 +211,25 @@ public class TestFd {
 					}
 		    	}
 				break;
-	
+
 			default:
 				break;
 		}
-    	
+
 
     	//header
     	HashMap<String, String> var1= request.getHeaders();
     	if(var1!=null){
     	var1.forEach((k,v)->{
-    			if(!k.equals("Content-Length"))
-    				RS.header(k, Utils.checkGetAll(v, bindmap));
+    			if(!k.equals("Content-Length") && !k.equals("Cookie"))
+    				RS.header(k, CaseUtil.checkGetAll(v, bindmap));
 		});
     	}
     	//Cookie(最后是cookie 因为header有可能有cookie 以cookie的参数为最后的结果)
     	HashMap<String, String> var2= request.getCookie();
     	if(var2!=null){
         	var2.forEach((k,v)->{
-        			RS.cookie(k,Utils.checkGetAll(v, bindmap));
+        			RS.cookie(k,CaseUtil.checkGetAll(v, bindmap));
     		});
     	}
 
@@ -241,13 +238,16 @@ public class TestFd {
     	String[] testUrl = stepDetail.getRequest().getUrl().split("/");
     	StringBuffer urlHandled= new StringBuffer();
     	for (int i = 0; i < testUrl.length; i++) {
-			urlHandled.append(Utils.checkGetAll(testUrl[i], bindmap));
+			urlHandled.append(CaseUtil.checkGetAll(testUrl[i], bindmap));
 			if(!(testUrl.length ==i+1))
 				urlHandled.append("/");
 		}
     	switch (stepDetail.getRequest().getMethod().toLowerCase()) {
 			case "post":
 				response = RS.post(urlHandled.toString());
+				break;
+			case "put":
+				response = RS.put(urlHandled.toString());
 				break;
 			case "get":
 				response = RS.get(urlHandled.toString());
@@ -262,7 +262,7 @@ public class TestFd {
     		bindmap.putAll(responseBinds);
 
     	//处理responsehandler
-    	
+
 //    	HashMap sHashMap = JSONObject.parseObject(response.asString(), HashMap.class);
 //    	HashMap<String,String> responsehandler = stepDetail.getResponsehandler();
 //    	if(responsehandler!=null){
@@ -286,7 +286,7 @@ public class TestFd {
     	for(ValidateMeta var3:var3list){
     		if(var3.getCheck().matches("^body\\.(.*)")){
     			if(var3.getComparator().equals("eq")){
-    				String actual = JsonPath.from(response.asString()).getString(Utils.getJsonPath(var3.getCheck()));
+    				String actual = JsonPath.from(response.asString()).getString(CaseUtil.getJsonPath(var3.getCheck()));
     				Assert.assertEquals( actual,var3.getExpect());
 //    				if(var3.getExpect().equals(expected)){
 //    					System.out.println(var3.getExpect()+":check Ok");
@@ -308,7 +308,8 @@ public class TestFd {
 
         //获取test.yaml文件中的配置数据，然后转换为obj，
 //        InputStream in = new FileInputStream(ResourceUtils.getFile("classpath:koudai.yaml"));
-        InputStream in = new FileInputStream(new File("src/main/resources/koudailoan.yaml"));
+        InputStream in = new FileInputStream(new File("F:\\har文件用例\\平台划款.yaml"));
+//        InputStream in = new FileInputStream(new File("F:\\har文件用例\\债券产品配置.yaml"));
 //        System.out.println(((ArrayList<Object>)yaml.load(in)).get(0).toString());
         CaseMeta teStepMetas= yaml.loadAs(in, CaseMeta.class);
         return teStepMetas.getCasedata().iterator();

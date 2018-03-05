@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 
 
 
-public class Utils {
+public class CaseUtil {
 
 	public static int func(String a,String b) {
 		return Integer.valueOf(a)+Integer.valueOf(b);
@@ -31,7 +31,7 @@ public class Utils {
 //		System.out.println("content:"+AesUtil.aesDecrypt(content, password));
 		HashMap<String, String> result = new HashMap<>();
 		try {
-			result = JSONObject.parseObject(AesUtil.aesDecrypt(content, password),HashMap.class);
+			result = JSONObject.parseObject(DEWAesUtil.aesDecrypt(content, password),HashMap.class);
 		} catch (Exception e) {
 			return null;
 		}
@@ -40,14 +40,14 @@ public class Utils {
 	
 
 	public static String handlerdewein(String body,String password) {
-		return EncrptUtil.encrpt(body, password);
+		return DEWEncrptUtil.encrpt(body, password);
 	}
 
 	@SuppressWarnings("unchecked")
 	public static void handleMapdata(HashMap<String, Object> var1,HashMap<String, Object> bindmap) {
 		var1.forEach((k1,v1)->{
 			if(String.class.isInstance(v1)) {
-				var1.put(k1, Utils.checkGetAll((String)v1, bindmap));
+				var1.put(k1, CaseUtil.checkGetAll((String)v1, bindmap));
 			}
 			else {
 				if(ArrayList.class.isInstance(v1)){
@@ -64,7 +64,7 @@ public class Utils {
 		((ArrayList<Object>) v1).stream().forEach(listvar ->{  
             if(String.class.isInstance(listvar)){
             	v1.remove(listvar);
-            	v1.add( Utils.checkGetAll((String)listvar, bindmap));
+            	v1.add( CaseUtil.checkGetAll((String)listvar, bindmap));
             }else if (ArrayList.class.isInstance(listvar)) {
 				handleListdata((ArrayList<Object>) listvar, bindmap);
 			}else if (HashMap.class.isInstance(listvar)) {
@@ -77,7 +77,7 @@ public class Utils {
 	public static Object handleObject(Object var,HashMap<String, Object> bindmap) {
 		Object result=null;
 		if(String.class.isInstance(var)){
-        	result = Utils.checkGetAll((String)var, bindmap);
+        	result = CaseUtil.checkGetAll((String)var, bindmap);
         }else if (ArrayList.class.isInstance(var)) {
 			handleListdata((ArrayList<Object>) var, bindmap);
 		}else if (HashMap.class.isInstance(var)) {
@@ -121,8 +121,8 @@ public class Utils {
 	        	  }
 	          }
 
-	          Utils test = new Utils();
-	          Method[] mts = Utils.class.getMethods();
+	          CaseUtil test = new CaseUtil();
+	          Method[] mts = CaseUtil.class.getMethods();
 	          for(Method mt:mts){
 //	        	  System.out.println(m.group(1));
 //	        	  System.out.println(mt.getName());

@@ -8,13 +8,13 @@ import java.util.Set;
 import com.alibaba.fastjson.JSONObject;
 import com.fengdai.qa.meta.LoginMeta;
 
-public class EncrptUtil {
+public class DEWEncrptUtil {
 
 	public static String encrpt(String oldData,String password){
 		
 		JSONObject jsonObject = JSONObject.parseObject(oldData);
 		String content = jsonObject.getString("content");
-		jsonObject.put("content", AesUtil.aesEncrypt(content, password));
+		jsonObject.put("content", DEWAesUtil.aesEncrypt(content, password));
 		Map<String, Object> map = jsonObject.toJavaObject(Map.class);
 		// 获取所有key
 		Set<String> set = map.keySet();
@@ -32,7 +32,7 @@ public class EncrptUtil {
 				params.append("&").append(key).append("=").append(map.get(key));
 			}
 		}
-		String sign = MD5Util.MD5(params.substring(1));// 系统签名
+		String sign = DEWMD5Util.MD5(params.substring(1));// 系统签名
 		jsonObject.put("sign", sign);
 //		System.out.println(jsonObject.toJSONString());
 		return jsonObject.toJSONString();
@@ -51,7 +51,7 @@ public class EncrptUtil {
 		
 		
 		
-		System.out.println(AesUtil.aesDecrypt("/rpF2brX65nfprNaT1n97QGR/2vRarq/x7xRj1FAFjtIp1oCWHbLJf5Rd5EB ue3ADoD/Oo6/gDQhyv5ffL7IQ0EKWLnrilUdil0vHPcHt4/HJl2QimXf34nc CHuYDgtA2YCr4N/EEt+BHN9mBOUBHZ1KpOjL3bWrHNIgiPRz13Su6SpktZU6 O7aAlb5fhdJ+LGmPRbbdhGbN6YRCzVr0yw__",
+		System.out.println(DEWAesUtil.aesDecrypt("/rpF2brX65nfprNaT1n97QGR/2vRarq/x7xRj1FAFjtIp1oCWHbLJf5Rd5EB ue3ADoD/Oo6/gDQhyv5ffL7IQ0EKWLnrilUdil0vHPcHt4/HJl2QimXf34nc CHuYDgtA2YCr4N/EEt+BHN9mBOUBHZ1KpOjL3bWrHNIgiPRz13Su6SpktZU6 O7aAlb5fhdJ+LGmPRbbdhGbN6YRCzVr0yw__",
 				""));
 		
 	}

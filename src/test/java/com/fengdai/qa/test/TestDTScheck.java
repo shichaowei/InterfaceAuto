@@ -50,7 +50,7 @@ public class TestDTScheck {
 	public static void main(String[] args) {
 		List<String> okKeys = new ArrayList<>();
 		List<String> failKeys = new ArrayList<>();
-		String temp = FileUtil.readFileByLines("src/main/resources/testDF.json");
+		String temp = FileUtil.readFileByLines("src/main/resources/testKD.json");
 		for(String key:checkDtslist) {
 			Object var1=JsonPath.from(temp).get(key);
 			if(var1 != null) {

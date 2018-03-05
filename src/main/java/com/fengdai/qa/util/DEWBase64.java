@@ -4,7 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;  
 import java.io.OutputStream;
 
-public class Base64 {
+public class DEWBase64 {
 	private static final char[] legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".toCharArray();  
     /** 
      * data[]进行编码 
