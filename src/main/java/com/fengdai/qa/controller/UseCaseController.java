@@ -71,7 +71,7 @@ public class UseCaseController {
 		res.setHeader("content-type", "application/octet-stream");
 		res.setContentType("application/octet-stream");
 		res.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(casefilename, "UTF-8"));
-		res.setContentLengthLong(caseFile.length());
+		res.setContentLength((int) caseFile.length());
 		byte[] buff = new byte[1024];
 		BufferedInputStream bis = null;
 		OutputStream os = null;

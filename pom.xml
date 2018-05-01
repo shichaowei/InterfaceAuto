@@ -21,12 +21,13 @@
 	</parent>
 
 	<dependencies>
-		<!-- 增加corebase功能 -->
+		<!-- 增加corebase功能 	-->
 		<dependency>
-			<groupId>com.fengdai.qa</groupId>
+			<groupId>com.wsc.qa</groupId>
 			<artifactId>core-base</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+	
 		<!-- 增加har解析功能 -->
 		<dependency>
 			<groupId>com.sangupta</groupId>
